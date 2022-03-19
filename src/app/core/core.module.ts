@@ -4,10 +4,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 
 import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     NgbModule,
@@ -16,6 +18,7 @@ import { HeaderComponent } from './header/header.component';
   ],
   exports: [
     HeaderComponent,
+    FooterComponent
   ]
 })
 export class CoreModule { }
