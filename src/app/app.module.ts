@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { CoreModule } from './core/core.module';
 import { HomeComponent } from './home/home.component';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -15,9 +16,10 @@ import { HomeComponent } from './home/home.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     NgbModule,
     CoreModule,
+    AuthModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

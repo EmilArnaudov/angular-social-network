@@ -1,0 +1,29 @@
+.container {
+    margin-top: 10%;
+}
+
+.title {
+    margin-top: 15px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.input-wrapper {
+    width: 80%;
+    margin: 0 auto;
+}
+
+input {
+    margin-bottom: 8px ;
+    font-size: smaller;
+}
+
+button {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+
+#sign-up:hover {
+    cursor: pointer;
+}
