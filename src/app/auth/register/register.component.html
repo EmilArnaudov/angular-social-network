@@ -55,21 +55,62 @@
                                 </p>
                             </ng-container>
                             
-
-                            <div ngModelGroup #passwords="ngModelGroup">
+                            <!-- TO DO 
+                            CREATE CUSTOM DIRECTIVE
+                        PASS BOTH PASSWRODS THROUGH BINDING PROPERTY SAME AS PASSING DATA FROM PARENT COMPONENT TO CHILD COMPONENT
+                            IF PASSWORDS NOT THE SAME SET ERROR: TRUE
+                            OTHERWISE NULL -->
+                            
                                 <div class="mg-4">
-                                    <input #password="ngModel" type="password" class="form-control" id="password" name="password" placeholder="Password" ngModel>
+                                    <input #password="ngModel" type="password" class="form-control" id="password" name="password" placeholder="Password"
+                                     ngModel
+                                     required
+                                     minlength="5"
+                                     [ngClass]="password.invalid && password.touched ? 'error' : ''"
+                                     >
+                                     <i [ngClass]="password.invalid && password.touched ? '' : 'hidden'" class="bi bi-x-circle error-icon"></i>
+                                     <i [ngClass]="password.valid && password.touched ? '' : 'hidden'" class="bi bi-check-circle success-icon"></i>
                                 </div>
 
+                                <ng-container *ngIf="password.invalid && password.touched">
+                                    <p class="form-error" *ngIf="password.errors?.['required']">
+                                        Password is required.
+                                    </p>
+                                    <p class="form-error" *ngIf="password.errors?.['minlength']">
+                                        Password should be at least 5 characters.
+                                    </p>
+                                </ng-container>
+
                                 <div class="mg-4">
-                                    <input #repeatPassword="ngModel" type="password" class="form-control" id="repeatPassword" name="repeatPassword" placeholder="Repeat Password" ngModel>
+                                    <input #repeatPassword="ngModel" type="password" class="form-control" id="repeatPassword" name="repeatPassword" placeholder="Repeat Password" 
+                                    ngModel
+                                    required
+                                    minlength="5"
+                                    [ngClass]="repeatPassword.invalid && repeatPassword.touched ? 'error' : ''"
+                                    appSameValue [pass]="password.value">
+                                    <i [ngClass]="repeatPassword.invalid && repeatPassword.touched ? '' : 'hidden'" class="bi bi-x-circle error-icon"></i>
+                                    <i [ngClass]="repeatPassword.valid && repeatPassword.touched ? '' : 'hidden'" class="bi bi-check-circle success-icon"></i>
                                 </div>
-                            </div>
 
-                            <div class="d-grid mg-4">
-                                <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Next</button>
-                            </div>
+                                <ng-container *ngIf="repeatPassword.invalid && repeatPassword.touched">
+                                    <p class="form-error" *ngIf="repeatPassword.errors?.['required']">
+                                        Repeat password is required.
+                                    </p>
+                                    <p class="form-error" *ngIf="repeatPassword.errors?.['minlength']">
+                                        Repeat password should be at least 5 characters.
+                                    </p>
 
+                                    <p class="form-error" *ngIf="repeatPassword.errors?.['notMatching'] && password.touched">
+                                        Passwords must match.
+                                    </p>
+                                </ng-container>
+
+                            
+
+                                <div class="d-grid mg-4">
+                                    <button [disabled]="!form.valid" type="submit" class="btn btn-primary">Join</button>
+                                </div>
+                           
                             <hr>
 
                             <div class="mg-4 text-center pt-3 pb-3">

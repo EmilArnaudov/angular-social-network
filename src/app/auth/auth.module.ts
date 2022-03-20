@@ -5,13 +5,15 @@ import { FormsModule } from '@angular/forms';
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { SameValueDirective } from './same-value.directive';
 
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    SameValueDirective
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { RegisterComponent } from './register/register.component';
   ],
   exports: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    SameValueDirective
   ]
 })
 export class AuthModule { }
