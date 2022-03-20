@@ -10,46 +10,74 @@
                     <h4 class="title text-secondary">Sign up to see photos and videos of your friends</h4>
                 </div>
                 <div class="card-body">
-                    
-                    <div class="input-wrapper align-items-center">
-                        
-                    
-                        <div class="mg-4">
-                            <!-- <label for="email" class="form-label">Email</label> -->
-                            <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+                    <form #form="ngForm" action="" method="post" (ngSubmit)="register()">            
+                        <div class="input-wrapper align-items-center">                   
+                            <div class="mg-4">
+                                <input #emailInput="ngModel" type="text" class="form-control" id="email" name="email" placeholder="Email" 
+                                ngModel
+                                [ngClass]="emailInput.invalid && emailInput.touched ? 'error' : ''"
+                                required
+                                pattern="^[a-zA-Z0-9\._]+@[a-z]+\.[a-z]+$">
+                                <i [ngClass]="emailInput.invalid && emailInput.touched ? '' : 'hidden'" class="bi bi-x-circle error-icon"></i>
+                                <i [ngClass]="emailInput.valid && emailInput.touched ? '' : 'hidden'" class="bi bi-check-circle success-icon"></i>
+                            </div>
+                            
+                            <ng-container *ngIf="emailInput.invalid && emailInput.touched">
+                                <p class="form-error" *ngIf="emailInput.errors?.['pattern']">
+                                    Please enter a valid email.
+                                </p>
+                                <p class="form-error" *ngIf="emailInput.errors?.['required']">
+                                    Email is required.
+                                </p>
+                            </ng-container>
+
+
+                            <div class="mg-4">
+                                <input #username="ngModel" type="text" class="form-control" id="username" name="username" placeholder="Username"
+                                 ngModel
+                                 [ngClass]="username.invalid && username.touched ? 'error' : ''"
+                                 required
+                                 minlength="4"
+                                 pattern="^[a-zA-Z0-9\._]+">
+                                 <i [ngClass]="username.invalid && username.touched ? '' : 'hidden'" class="bi bi-x-circle error-icon"></i>
+                                 <i [ngClass]="username.valid && username.touched ? '' : 'hidden'" class="bi bi-check-circle success-icon"></i>
+                            </div>
+
+                            <ng-container *ngIf="username.invalid && username.touched">
+                                <p class="form-error" *ngIf="username.errors?.['pattern']">
+                                    Username symbols allowed are '0-9', 'A-Z', 'a-z', '.', '_'.
+                                </p>
+                                <p class="form-error" *ngIf="username.errors?.['required']">
+                                    Username is required.
+                                </p>
+                                <p class="form-error" *ngIf="username.errors?.['minlength']">
+                                    Username should be at least 4 characters.
+                                </p>
+                            </ng-container>
+                            
+
+                            <div ngModelGroup #passwords="ngModelGroup">
+                                <div class="mg-4">
+                                    <input #password="ngModel" type="password" class="form-control" id="password" name="password" placeholder="Password" ngModel>
+                                </div>
+
+                                <div class="mg-4">
+                                    <input #repeatPassword="ngModel" type="password" class="form-control" id="repeatPassword" name="repeatPassword" placeholder="Repeat Password" ngModel>
+                                </div>
+                            </div>
+
+                            <div class="d-grid mg-4">
+                                <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Next</button>
+                            </div>
+
+                            <hr>
+
+                            <div class="mg-4 text-center pt-3 pb-3">
+                                Already have an account? <span id="sign-up" class="text-info" routerLink="/login">Log in</span>
+                            </div>
+
                         </div>
-
-                        <div class="mg-4">
-                            <!-- <label for="email" class="form-label">Email</label> -->
-                            <input type="text" class="form-control" id="username" name="username" placeholder="Username">
-                        </div>
-    
-                        <div class="mg-4">
-                            <!-- <label for="password" class="form-label">Password</label> -->
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-                        </div>
-
-                        <div class="mg-4">
-                            <!-- <label for="password" class="form-label">Password</label> -->
-                            <input type="password" class="form-control" id="repeatPassword" name="repeatPassword" placeholder="Repeat Password">
-                        </div>
-                        
-                        <div class="d-grid mg-4">
-                            <button disabled type="button" class="btn btn-primary">Next</button>
-                        </div>
-
-                        <hr>
-
-                        <div class="mg-4 text-center pt-3 pb-3">
-                            Already have an account? <span id="sign-up" class="text-info" routerLink="/login">Log in</span>
-                        </div>
-
-                    </div>
-
-
-
-
-
+                    </form>
                 </div>
             </div>
         </div>

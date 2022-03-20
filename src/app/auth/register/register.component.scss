@@ -34,3 +34,30 @@ h4 {
     font-size: 17px;
     margin: 0 auto;
 }
+
+.form-error {
+    color: rgb(226, 49, 49);
+    font-size: 11px;
+}
+
+.error {
+    border: 1px solid rgb(245, 88, 88);
+}
+
+i {
+    position: absolute;
+    margin-top: -38px;
+    margin-left: 274px;
+}
+
+.error-icon {
+    color: rgb(245, 88, 88);
+}
+
+.success-icon {
+    color: rgb(102, 160, 102);
+}
+
+.hidden {
+    display: none;
+}
