@@ -8,34 +8,43 @@
                     </h2>
                 </div>
                 <div class="card-body">
-                    
-                    <div class="input-wrapper align-items-center">
-                        <div class="mg-4">
-                            <!-- <label for="email" class="form-label">Email</label> -->
-                            <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+                    <form #form="ngForm" action="" method="post" (ngSubmit)="login()">
+                        <div class="input-wrapper align-items-center">
+                            <div class="mg-4">
+                                <input type="text" class="form-control" id="email" name="email" placeholder="Email" 
+                                ngModel
+                                required
+                                pattern="^[a-zA-Z0-9\._]+@[a-z]+\.[a-z]+$"
+                                #email="ngModel">
+                            </div>
+
+                            <ng-container *ngIf="email.invalid && email.touched">
+                                <p class="form-error" *ngIf="email.errors?.['pattern']">
+                                    Please enter a valid email.
+                                </p>
+                            </ng-container>
+        
+                            <div class="mg-4">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Password" 
+                                ngModel
+                                required>
+                            </div>
+
+                            <p class="form-error" *ngIf="fireBaseErrorMessage != ''">
+                                {{fireBaseErrorMessage}}
+                            </p>
+                            
+                            <div class="d-grid mg-4">
+                                <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Log In</button>
+                            </div>
+
+                            <hr>
+
+                            <div class="mg-4 text-center pt-3 pb-3">
+                                Don't have an account? <span id="sign-up" class="text-info" routerLink="/register">Sign up</span>
+                            </div>
                         </div>
-    
-                        <div class="mg-4">
-                            <!-- <label for="password" class="form-label">Password</label> -->
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-                        </div>
-                        
-                        <div class="d-grid mg-4">
-                            <button disabled type="button" class="btn btn-primary">Log In</button>
-                        </div>
-
-                        <hr>
-
-                        <div class="mg-4 text-center pt-3 pb-3">
-                            Don't have an account? <span id="sign-up" class="text-info" routerLink="/register">Sign up</span>
-                        </div>
-
-                    </div>
-
-
-
-
-
+                    </form>
                 </div>
             </div>
         </div>

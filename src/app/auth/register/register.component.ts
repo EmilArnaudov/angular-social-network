@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AuthService } from '../auth.service';
 
 
 @Component({
@@ -10,8 +11,9 @@ import { NgForm } from '@angular/forms';
 export class RegisterComponent implements OnInit {
 
   @ViewChild('form') form!: NgForm;
+  fireBaseErrorMessage?: string;
 
-  constructor() {
+  constructor(private authService: AuthService) {
    }
 
   ngOnInit(): void {
@@ -19,7 +21,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    console.log(this.form);
+    this.authService.register(this.form.value);
   }
 
 }

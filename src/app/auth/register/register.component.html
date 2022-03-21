@@ -65,7 +65,7 @@
                                     <input #password="ngModel" type="password" class="form-control" id="password" name="password" placeholder="Password"
                                      ngModel
                                      required
-                                     minlength="5"
+                                     minlength="6"
                                      [ngClass]="password.invalid && password.touched ? 'error' : ''"
                                      >
                                      <i [ngClass]="password.invalid && password.touched ? '' : 'hidden'" class="bi bi-x-circle error-icon"></i>
@@ -77,7 +77,7 @@
                                         Password is required.
                                     </p>
                                     <p class="form-error" *ngIf="password.errors?.['minlength']">
-                                        Password should be at least 5 characters.
+                                        Password should be at least 6 characters.
                                     </p>
                                 </ng-container>
 
