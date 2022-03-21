@@ -3,11 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
-import { environment } from 'src/environments/environment';
 
 import { CoreModule } from './core/core.module';
 import { HomeComponent } from './home/home.component';
@@ -26,9 +22,6 @@ import { MainComponent } from './main/main.component';
     CoreModule,
     AuthModule,
     AppRoutingModule,
-    AngularFireModule,
-    AngularFirestoreModule,
-    AngularFireDatabaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]

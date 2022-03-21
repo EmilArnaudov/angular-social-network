@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm, NgModelGroup } from '@angular/forms';
+import { NgForm } from '@angular/forms';
+
 
 @Component({
   selector: 'app-register',
@@ -8,18 +9,17 @@ import { NgForm, NgModelGroup } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
-  @ViewChild('form') form!: NgForm
+  @ViewChild('form') form!: NgForm;
 
-
-  constructor() { }
+  constructor() {
+   }
 
   ngOnInit(): void {
-     
+
   }
 
   register() {
-    console.log(this.form.value);
-    
+    console.log(this.form);
   }
 
 }
