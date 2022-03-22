@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-  <div class="container">
+  <div class="container" [ngClass]="user ? 'app-mode': ''">
     <a routerLink="/" class="navbar-brand"><span class="text-info">Social</span>Network</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -13,13 +13,13 @@
           <a class="nav-link" routerLink="/app"><i class="fa-solid fa-house fa-xl"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="app/posts/create-post" ><i class="fa-solid fa-circle-plus fa-xl"></i></a>
+          <a class="nav-link" ><i class="fa-solid fa-circle-plus fa-xl"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="app/messages"><i class="fa-solid fa-paper-plane fa-xl"></i></a>
+          <a class="nav-link" routerLink="['/app/', 'messages']" (click)="logout()"><i class="fa-solid fa-paper-plane fa-xl"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" (click)="logout()"><i class="fa-solid fa-circle-user fa-xl"></i></a>
+          <a class="nav-link" [routerLink]="['/app/', 'profile']" ><i class="fa-solid fa-circle-user fa-xl"></i></a>
         </li>
       </ul>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0" *ngIf="!user">
