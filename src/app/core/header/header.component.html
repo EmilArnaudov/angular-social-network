@@ -6,20 +6,20 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0" *ngIf="user">
+        <form>
+          <input class="form-control me-2" type="search" placeholder=" Search" aria-label="Search">
+        </form>
         <li class="nav-item">
-          <a class="nav-link" (click)="logout()">Link</a>
+          <a class="nav-link" routerLink="/app"><i class="fa-solid fa-house fa-xl"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" routerLink="app/posts/create-post" ><i class="fa-solid fa-circle-plus fa-xl"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" routerLink="app/messages"><i class="fa-solid fa-paper-plane fa-xl"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" (click)="logout()"><i class="fa-solid fa-circle-user fa-xl"></i></a>
         </li>
       </ul>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0" *ngIf="!user">
@@ -30,10 +30,7 @@
           <a class="nav-link auth" routerLink="/register">Register</a>
         </li>
       </ul>
-      <!-- <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form> -->
+
     </div>
   </div>
 </nav>

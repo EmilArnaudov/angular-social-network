@@ -7,7 +7,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class UserGuard implements CanActivate {
 
   constructor(private router: Router, private afAuth: AngularFireAuth) {}
 
@@ -18,12 +18,12 @@ export class AuthGuard implements CanActivate {
 
     return new Promise((resolve, reject) => {
       this.afAuth.onAuthStateChanged((user) => {
-        if (user) {
+        if (!user) {
           resolve(true)
 
         } else {
-          console.log('AUTH-GUARD: Access Denied.');
-          this.router.navigate(['/login']);
+          console.log('AUTH-GUARD: Trying to access guest-only features.');
+          this.router.navigate(['/app']);
           resolve(false);
         }
       })
