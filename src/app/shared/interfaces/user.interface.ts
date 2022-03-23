@@ -4,3 +4,14 @@ export interface User {
     password: string;
     repeatPassword: string;
 }
+
+export interface UserProfile {
+    email: string;
+    followers: string[];
+    following: string[];
+    likesOnOwnPosts: string[];
+    posts: string[];
+    profileDescription: string;
+    profilePicture: string;
+    username: string;
+}

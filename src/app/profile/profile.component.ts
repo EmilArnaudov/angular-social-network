@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserProfile } from 'firebase/auth';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  userData!: UserProfile | any;
+
+  constructor(private userService: UserService) {
+   }
 
   ngOnInit(): void {
+    this.userService.loadUserInfo()
+      .then(data => {
+        this.userData = data;
+      });
+    
+    
   }
 
 }
