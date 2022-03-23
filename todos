@@ -1,5 +1,6 @@
 Create directive to highlight the nav bar depending on which page the user is.
 Create a welcome modal when a user register.
+Change typography for different functions of app
 
 
 import { Injectable } from '@angular/core';

@@ -1,3 +1,65 @@
-div {
-    background-color: pink;
+.card {
+    border: none;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    cursor: pointer
+}
+
+.card:hover::after {
+    transform: scaleY(1)
+}
+
+.fonts {
+    font-size: 11px
+}
+
+.social-list {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    padding: 0
+}
+
+.social-list li {
+    padding: 5px;
+    color: #42a2b3;
+    font-size: 14px
+}
+
+.buttons button:nth-child(1) {
+    border: 1px solid #0dcaf0 !important;
+    color: #0dcaf0;
+    height: 40px
+}
+
+.buttons button:nth-child(1):hover {
+    border: 1px solid #0dcaf0 !important;
+    color: #fff;
+    height: 40px;
+    background-color: #0dcaf0
+}
+
+.buttons button:nth-child(2) {
+    border: 1px solid #0dcaf0 !important;
+    background-color: #0dcaf0;
+    color: #fff;
+    height: 40px
+}
+
+.chat {
+    margin-left: 20px;
+}
+
+.img-div {
+    padding-top: 27px;
+}
+
+.description {
+    margin-left: 10rem;
+    text-align: left;
+}
+
+.hr {
+    width: 69%;
 }
