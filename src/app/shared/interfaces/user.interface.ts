@@ -14,4 +14,7 @@ export interface UserProfile {
     profileDescription: string;
     profilePicture: string;
     username: string;
+    firstName: string;
+    lastName: string;
+    fullName: string;
 }

@@ -21,7 +21,14 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    this.authService.register(this.form.value);
+    this.authService.register(this.form.value)
+    .then((result) => {
+      if (result == null) {
+        return;
+      } else if (result.isValid == false ) {
+        this.fireBaseErrorMessage = result.message;
+      }
+    })
   }
 
 }

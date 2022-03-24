@@ -7,9 +7,12 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
    get user() {
      return this.authService.userLoggedIn;
    }
+
+   username = localStorage.getItem('<USERNAME>');
 
   constructor(private authService: AuthService) { }
 

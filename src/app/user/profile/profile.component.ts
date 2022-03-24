@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { UserProfile } from 'firebase/auth';
 import { UserService } from '../user.service';
 
@@ -11,11 +12,13 @@ export class ProfileComponent implements OnInit {
 
   userData!: UserProfile | any;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private route: ActivatedRoute) {
    }
 
   ngOnInit(): void {
-    this.userService.loadUserInfo()
+    let username = this.route.snapshot.params['username'];
+
+    this.userService.loadUserInfo(username)
       .then(data => {
         this.userData = data;
       });

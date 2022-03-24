@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { onAuthStateChanged, Auth, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } from '@angular/fire/auth';
-import { addDoc, collection, Firestore } from '@angular/fire/firestore';
+import { onAuthStateChanged, Auth, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword, UserCredential } from '@angular/fire/auth';
+import { Firestore, setDoc, doc } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 
 import { User } from '../shared/interfaces/user.interface';
+import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class AuthService {
   userLoggedIn!: boolean
   firebaseErrorMessage?: string
 
-  constructor(private router: Router, private auth: Auth, public firestore: Firestore) {
+  constructor(private router: Router, private auth: Auth, public firestore: Firestore, private userService: UserService) {
     this.userLoggedIn = false;
 
     onAuthStateChanged(this.auth, (user) => {
@@ -26,15 +27,18 @@ export class AuthService {
   }
 
 
-  register(user: User) {
-    createUserWithEmailAndPassword(this.auth, user.email, user.password)
+  register(user: User): Promise<{isValid: boolean, message: string}> | Promise<any> {
+    return createUserWithEmailAndPassword(this.auth, user.email, user.password)
       .then(result => {
-        this.router.navigate(['/app']);
+        // const collectionRef = collection(this.firestore, 'users');
+        const docRef = doc(this.firestore, 'users', user.username);
 
-        const collectionRef = collection(this.firestore, 'users');
-        addDoc(collectionRef, {
+        setDoc(docRef, {
           email: user.email,
           username: user.username,
+          fullName: '',
+          firstName: '',
+          lastName: '',
           followers: [],
           following: [],
           posts: [],
@@ -43,26 +47,35 @@ export class AuthService {
           profilePicture: '',
           profileDescription: '',
         })
-          .then((result) => {
-            console.log(result);
+          .then(result => {
+            localStorage.setItem('<USERNAME>', user.username);
+            this.router.navigate(['/app']);
           })
-          .catch(error => console.error(error))
-
+          .catch(error => {
+            return {isValid: false, message: 'Username is already taken.'}
+          })
       })
-      .catch(error => {
-        return {isValid: false, message: 'Email is already in use.'};
-      }) ;
-    }
+        .catch(error => {
+          return {isValid: false, message: 'Email is already taken.'}
+        })
+  }
+
 
 
   logout() {
     signOut(this.auth)
-      .then(() => this.router.navigate(['/login']))
+      .then(() => {
+      localStorage.clear();
+      this.router.navigate(['/login'])})
   }
 
   login(email: string, password: string) {
     return signInWithEmailAndPassword(this.auth, email, password)
-      .then(() => {this.router.navigate(['/app'])})
+      .then(async () => {
+        const userData = await this.userService.loadUserInfoOnLogin()
+
+        localStorage.setItem('<USERNAME>', userData.username);
+        this.router.navigate(['/app'])})
       .catch(error => {
         return {isValid: false, message: 'Username or password incorrect.'};
       })
