@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserProfile } from 'firebase/auth';
 import { UserService } from '../user.service';
 
@@ -11,19 +11,32 @@ import { UserService } from '../user.service';
 export class ProfileComponent implements OnInit {
 
   userData!: UserProfile | any;
+  currentUserUsername = localStorage.getItem('<USERNAME>');
 
   constructor(private userService: UserService, private route: ActivatedRoute) {
    }
 
-  ngOnInit(): void {
-    let username = this.route.snapshot.params['username'];
 
-    this.userService.loadUserInfo(username)
-      .then(data => {
-        this.userData = data;
-      });
-    
-    
+   //Subcription is needed here because loading a profile from another profile didnt update the values.
+
+   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      if (params['username']) {
+        this.userService.loadUserInfo(params['username'])
+          .then(data => {
+            this.userData = data;
+          })
+      }
+    })
   }
+
+  // ngOnInit(): void {
+  //   let username = this.route.snapshot.params['username'];
+
+  //   this.userService.loadUserInfo(username)
+  //     .then(data => {
+  //       this.userData = data;
+  //     });
+  // }
 
 }

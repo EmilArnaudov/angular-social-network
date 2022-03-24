@@ -9,9 +9,9 @@ import { provideFirebaseApp } from '@angular/fire/app';
 import { initializeApp } from 'firebase/app';
 import { provideAuth } from '@angular/fire/auth';
 import { getAuth } from 'firebase/auth';
-
-
+import { RouterModule } from '@angular/router';
 import { CoreModule } from './core/core.module';
+
 import { HomeComponent } from './home/home.component';
 import { AuthModule } from './auth/auth.module';
 import { MainComponent } from './main/main.component';
@@ -34,6 +34,7 @@ import { ProfileEditComponent } from './user/profile-edit/profile-edit.component
     CoreModule,
     AuthModule,
     AppRoutingModule,
+    RouterModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),

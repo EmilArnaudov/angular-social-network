@@ -3,7 +3,7 @@
         <div class="col-md-7">
             <div class="card p-3 py-4">
                 <div class="text-center"> <img src="https://i.imgur.com/bDLhJiP.jpg" width="100" class="rounded-circle"> </div>
-                <div class="text-center mt-3">
+                <div class="text-center mt-3"><span *ngIf="userData?.username === currentUserUsername" [routerLink]="['/app/', userData.username, 'edit']" class="span bg-secondary p-1 px-4 rounded text-white">Edit Profile</span>
                     <h5 class="mt-2 mb-0">{{userData?.username}}</h5> <span>Student</span>
                     <div class="px-4 mt-1 text-center">
                         <p class="fonts text-left">{{userData?.description}}</p>
