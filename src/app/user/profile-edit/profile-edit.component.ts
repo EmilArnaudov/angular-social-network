@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DocumentData } from '@angular/fire/firestore';
+import { NgForm } from '@angular/forms';
+
+
+import { UserProfile } from 'src/app/shared/interfaces/user.interface';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-profile-edit',
@@ -7,9 +13,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileEditComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('form') form!: NgForm
+
+  userData!: DocumentData | undefined | UserProfile
+
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+      let username = localStorage.getItem('<USERNAME>')
+      this.userService.loadUserInfo(username)
+        .then(data => {
+          this.userData = data;
+        })  
+  }
+
+  updateUserInfo() {
+    this.userService.updateUserInfo(this.userData?.username, this.form.value)
+      .then(() => {console.log('Success');
+      })
+      .catch(error => console.log(error)
+      )
   }
 
 }

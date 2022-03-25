@@ -1,98 +1,37 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
-
 .container {
-    height: 100vh
-}
-
-.card {
-    width: 380px;
-    padding: 15px;
-    border: none
-}
-
-.notify-text {
-    font-size: 14px
-}
-
-.buttons {
-    font-size: 12px;
-    height: 32px
-}
-
-.form-check-label {
-    font-size: 14px
-}
-
-.accounts {
-    font-size: 14px
-}
-
-.outline {
-    border: 1px solid #e3eae6;
-    border-radius: 5px;
-    background: #f4fcf8;
-    margin-top: 10px
-}
-
-.image-size {
-    font-size: 12px;
-    color: #9c9c9c;
-    margin-top: 7px
-}
-
-.form-control {
-    border-bottom: 1px solid #eee !important;
-    border: none;
-    font-weight: 500;
-    padding: .375rem .15rem
+    width: 69%;
 }
 
 .form-control:focus {
-    color: #495057;
-    background-color: #fff;
-    border-color: #8bbafe;
-    outline: 0;
     box-shadow: none;
-    border-radius: 0px;
-    padding: .375rem .15rem;
-    padding-bottom: 1px;
-    border-bottom: 1px solid blue !important
+    border-color: #06a4c4
 }
 
-.inputbox {
-    position: relative;
-    margin-bottom: 20px;
-    width: 100%
+.profile-button {
+    background: #0dcaf0;
+    box-shadow: none;
+    border: none
 }
 
-.inputbox span {
-    position: absolute;
-    top: 10px;
-    left: 5px;
-    font-size: 13px;
-    transition: 0.5s
+.profile-button:hover {
+    background: #0dcaf0
 }
 
-.inputbox i {
-    position: absolute;
-    top: 13px;
-    right: 8px;
-    transition: 0.5s;
-    color: #3F51B5
+.profile-button:focus {
+    background: #0dcaf0;
+    box-shadow: none
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0
+.profile-button:active {
+    background: #0dcaf0;
+    box-shadow: none
 }
 
-.inputbox input:focus~span {
-    transform: translateX(-4px) translateY(-13px);
-    font-size: 10px
+.back:hover {
+    color: #0dcaf0;
+    cursor: pointer
 }
 
-.inputbox input:valid~span {
-    transform: translateX(-4px) translateY(-13px);
-    font-size: 10px
+.labels {
+    font-size: 11px
 }
