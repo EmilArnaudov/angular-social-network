@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DocumentData } from '@angular/fire/firestore';
 import { NgForm } from '@angular/forms';
-import { concatMap } from 'rxjs';
 import { ImageUploadService } from 'src/app/image-upload.service';
 
 
@@ -19,6 +18,7 @@ export class ProfileEditComponent implements OnInit {
 
   userData!: DocumentData | undefined | UserProfile
   pictureUploaded = false;
+  profilePictureUrl = '';
 
   constructor(private userService: UserService, private imageUploadService: ImageUploadService) { }
 
@@ -31,6 +31,10 @@ export class ProfileEditComponent implements OnInit {
   }
 
   updateUserInfo() {
+    if (this.profilePictureUrl !== '') {
+      this.form.value.profilePicture = this.profilePictureUrl;
+    }
+
     this.userService.updateUserInfo(this.userData?.username, this.form.value)
       .then(() => {console.log('Success');
       })
@@ -42,10 +46,8 @@ export class ProfileEditComponent implements OnInit {
     const image = event.target.files[0];
     const path = `images/profile/${username}`
 
-    this.imageUploadService.uploadImage(image, path).pipe(
-      // concatMap((async (profilePicture) => await this.userService.updateUserInfo(username, { profilePicture }))
-      concatMap((profilePicture => this.form.value.profilePicture = profilePicture)
-    )).subscribe();
+    this.imageUploadService.uploadImage(image, path)
+      .subscribe(profilePicture => this.profilePictureUrl = profilePicture);
     
     this.pictureUploaded = true;
   }
