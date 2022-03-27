@@ -7,6 +7,7 @@
                     <img  class="rounded-circle mt-5 profile-pic" width="150px" [src]="userData?.profilePicture == '' ? '../../../assets/default-profile.jpg' : userData?.profilePicture">
                 </label>
                 <input #inputField hidden (change)="uploadProfilePicture($event, userData?.username)" id="imageInput" type="file"><span class="font-weight-bold">{{userData?.username}}</span><span class="text-black-50">{{userData?.email}}</span><span> </span>
+                <p *ngIf="pictureUploaded" class="upload-notification">Your picture has been uploaded!</p>
             </div>
         </div>
         <div class="col-md-5 border-right">

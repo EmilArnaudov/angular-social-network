@@ -18,6 +18,7 @@ export class ProfileEditComponent implements OnInit {
   @ViewChild('form') form!: NgForm
 
   userData!: DocumentData | undefined | UserProfile
+  pictureUploaded = false;
 
   constructor(private userService: UserService, private imageUploadService: ImageUploadService) { }
 
@@ -41,9 +42,12 @@ export class ProfileEditComponent implements OnInit {
     const image = event.target.files[0];
     const path = `images/profile/${username}`
 
-    let imageSubscription = this.imageUploadService.uploadImage(image, path).pipe(
-      concatMap((async (profilePicture) => await this.userService.updateUserInfo(username, { profilePicture }))
+    this.imageUploadService.uploadImage(image, path).pipe(
+      // concatMap((async (profilePicture) => await this.userService.updateUserInfo(username, { profilePicture }))
+      concatMap((profilePicture => this.form.value.profilePicture = profilePicture)
     )).subscribe();
+    
+    this.pictureUploaded = true;
   }
 
 }
