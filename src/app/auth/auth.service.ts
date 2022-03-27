@@ -30,7 +30,6 @@ export class AuthService {
   register(user: User): Promise<{isValid: boolean, message: string}> | Promise<any> {
     return createUserWithEmailAndPassword(this.auth, user.email, user.password)
       .then(result => {
-        // const collectionRef = collection(this.firestore, 'users');
         const docRef = doc(this.firestore, 'users', user.username);
 
         setDoc(docRef, {
@@ -72,8 +71,7 @@ export class AuthService {
   login(email: string, password: string) {
     return signInWithEmailAndPassword(this.auth, email, password)
       .then(async () => {
-        const userData = await this.userService.loadUserInfoOnLogin()
-
+        const userData = await this.userService.loadUserInfoOnLogin();
         localStorage.setItem('<USERNAME>', userData.username);
         this.router.navigate(['/app'])})
       .catch(error => {

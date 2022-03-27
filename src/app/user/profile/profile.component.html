@@ -2,18 +2,18 @@
     <div class="row d-flex justify-content-center">
         <div class="col-md-7">
             <div class="card p-3 py-4">
-                <div class="text-center"> <img src="https://i.imgur.com/bDLhJiP.jpg" width="100" class="rounded-circle"> </div>
+                <div class="text-center"> <img [src]="userData?.profilePicture == '' ? '../../../assets/default-profile.jpg' : userData?.profilePicture" width="100" class="rounded-circle"> </div>
                 <div class="text-center mt-3"><span *ngIf="userData?.username === currentUserUsername" [routerLink]="['/app/', userData.username, 'edit']" class="span bg-secondary p-1 px-4 rounded text-white">Edit Profile</span>
-                    <h5 class="mt-2 mb-0">{{userData?.username}}</h5> <span>Student</span>
+                    <h5 class="mt-2 mb-0">{{userData?.firstName}} {{userData?.lastName}}</h5> <span>{{userData?.username}}</span>
                     <div class="px-4 mt-1 text-center">
-                        <p class="fonts text-left">{{userData?.description}}</p>
+                        <p class="fonts text-left">{{userData?.profileDescription}}</p>
                     </div>
                     <ul class="social-list">
-                        <li>{{userData?.posts}} posts</li>
-                        <li>0 following</li>
-                        <li>0 followers</li>
+                        <li>{{userData?.posts.length ? userData.posts.length : '0'}} posts</li>
+                        <li>{{userData?.following.length ? userData.following.length : '0'}} following</li>
+                        <li>{{userData?.followers.length ? userData.followers.length : '0'}} followers</li>
                     </ul>
-                    <div class="buttons"> <button class="btn btn-info-primary px-4">Message</button> <button class="btn btn-info px-4 ms-3">Follow</button> </div>
+                    <div *ngIf="userData?.username !== currentUserUsername" class="buttons"> <button class="btn btn-info-primary px-4">Message</button> <button class="btn btn-info px-4 ms-3">Follow</button> </div>
                 </div>
             </div>
         </div>

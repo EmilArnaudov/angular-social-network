@@ -5,6 +5,8 @@ import { doc } from 'firebase/firestore';
 import { DocumentData } from '@angular/fire/firestore';
 import { UserProfile } from '../shared/interfaces/user.interface';
 import { Router } from '@angular/router';
+import { ImageUploadService } from '../image-upload.service';
+import { concatMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,7 @@ export class UserService {
 
   userProfileData!: UserProfile | any
 
-  constructor(private auth: Auth, private firestore: Firestore, private router: Router) { }
+  constructor(private auth: Auth, private firestore: Firestore, private router: Router, private uploadService: ImageUploadService) { }
 
   updateUserInfo(username: string, data: object) {
     const docRef = doc(this.firestore, 'users', username);
@@ -51,8 +53,6 @@ export class UserService {
         this.userProfileData = users.filter((x: any) => x.email == this.auth.currentUser?.email)[0];
 
         return this.userProfileData
-        
-
       });
 
 

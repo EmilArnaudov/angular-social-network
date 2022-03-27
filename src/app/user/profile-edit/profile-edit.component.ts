@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DocumentData } from '@angular/fire/firestore';
 import { NgForm } from '@angular/forms';
+import { concatMap } from 'rxjs';
+import { ImageUploadService } from 'src/app/image-upload.service';
 
 
 import { UserProfile } from 'src/app/shared/interfaces/user.interface';
@@ -17,7 +19,7 @@ export class ProfileEditComponent implements OnInit {
 
   userData!: DocumentData | undefined | UserProfile
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private imageUploadService: ImageUploadService) { }
 
   ngOnInit(): void {
       let username = localStorage.getItem('<USERNAME>')
@@ -33,6 +35,15 @@ export class ProfileEditComponent implements OnInit {
       })
       .catch(error => console.log(error)
       )
+  }
+
+  uploadProfilePicture(event: any, username: string) {
+    const image = event.target.files[0];
+    const path = `images/profile/${username}`
+
+    let imageSubscription = this.imageUploadService.uploadImage(image, path).pipe(
+      concatMap((async (profilePicture) => await this.userService.updateUserInfo(username, { profilePicture }))
+    )).subscribe();
   }
 
 }

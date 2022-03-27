@@ -19,6 +19,7 @@ import { environment } from 'src/environments/environment';
 import { ProfileComponent } from './user/profile/profile.component';
 import { ProfileEditComponent } from './user/profile-edit/profile-edit.component';
 import { FormsModule } from '@angular/forms';
+import { getStorage, provideStorage } from '@angular/fire/storage';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { FormsModule } from '@angular/forms';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -17,4 +17,7 @@ export interface UserProfile {
     firstName: string;
     lastName: string;
     fullName: string;
+    country: string;
+    region: string;
+    phoneNumber: string;
 }
