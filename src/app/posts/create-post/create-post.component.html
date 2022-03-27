@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row  d-flex align-items-center justify-content-center mt-5">
+        <div class="col-lg-4 col-md-8 col-sm-8">
+            <div class="card shadow">
+                <div class="card-title text-center">
+                    <h2 class="title">
+                        <span class="text-info">Create</span> post
+                    </h2>
+
+                    <h4 class="title text-secondary">Share your memories</h4>
+                </div>
+                <div class="card-body">
+                    <form #form="ngForm" action="" method="post" (ngSubmit)="createPost()">            
+                        <div class="input-wrapper align-items-center">                   
+
+                        
+                            <div class="mg-4 mb-4">
+                                <label for="image">
+                                    Share a photo
+                                </label>
+                                <input #image="ngModel" (change)="uploadImageToStorage($event)" type="file" class="form-control" id="image" name="image" accept="image/*" ngModel required>
+                            </div>
+
+                            <p *ngIf="imageUploaded" class="form-error" style="color: green;">Image has been uploaded successfully</p>
+
+                            <div class="mg-4">
+                                <label for="postDescription">Share your thoughts</label>
+                                <textarea #desc="ngModel"  required ngModel id="postDescription" name="postDescription"></textarea>
+                            </div>
+
+                        
+                            <div class="d-grid mg-4">
+                                <button [disabled]="!form.valid" type="submit" class="btn btn-primary">Post</button>
+                            </div>
+                            
+
+                            <p *ngIf="(desc.invalid && desc.touched) || (image.value == '' && image.dirty) || (image.value == '' && desc.dirty)" class="form-error">Both fields are required</p>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

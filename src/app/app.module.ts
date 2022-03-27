@@ -20,6 +20,7 @@ import { ProfileComponent } from './user/profile/profile.component';
 import { ProfileEditComponent } from './user/profile-edit/profile-edit.component';
 import { FormsModule } from '@angular/forms';
 import { getStorage, provideStorage } from '@angular/fire/storage';
+import { CreatePostComponent } from './posts/create-post/create-post.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
     HomeComponent,
     MainComponent,
     ProfileComponent,
-    ProfileEditComponent
+    ProfileEditComponent,
+    CreatePostComponent
   ],
   imports: [
     BrowserModule,

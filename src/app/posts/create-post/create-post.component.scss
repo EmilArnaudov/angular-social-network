@@ -1,0 +1,78 @@
+.container {
+    margin-top: 7%;
+}
+
+.title {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.input-wrapper {
+    width: 80%;
+    margin: 0 auto;
+}
+
+input {
+    margin-bottom: 8px ;
+    font-size: smaller;
+}
+
+button {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+
+#sign-up:hover {
+    cursor: pointer;
+}
+
+h4 {
+    width: 70%;
+    text-align: center;
+    font-size: 17px;
+    margin: 0 auto;
+}
+
+.form-error {
+    color: rgb(226, 49, 49);
+    font-size: 11px;
+}
+
+.error {
+    border: 1px solid rgb(245, 88, 88);
+}
+
+i {
+    position: absolute;
+    margin-top: -38px;
+    margin-left: 274px;
+}
+
+.error-icon {
+    color: rgb(245, 88, 88);
+}
+
+.success-icon {
+    color: rgb(102, 160, 102);
+}
+
+.hidden {
+    display: none;
+}
+
+textarea {
+    width: 100%;
+    height: 100%;
+}
+
+label {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.form-error {
+    color: rgb(226, 49, 49);
+    font-size: 11px;
+}
