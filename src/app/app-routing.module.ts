@@ -20,7 +20,7 @@ const routes: Routes = [
   {path: 'app', component: MainComponent, canActivate: [AuthGuard]},
   {path: 'app/create-post', component: CreatePostComponent, canActivate: [AuthGuard]},
   {path: 'app/:username', component: ProfileComponent, canActivate: [AuthGuard]},
-  {path: 'app/:username/edit', component: ProfileEditComponent, canActivate: [AuthGuard, IsOwnerGuard]},
+  {path: 'app/:username/edit', component: ProfileEditComponent, canActivate: [AuthGuard, IsOwnerGuard],},
 
 ];
 
