@@ -10,16 +10,16 @@
           <input class="form-control me-2" type="search" placeholder=" Search" aria-label="Search">
         </form>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/app"><i class="fa-solid fa-house fa-xl"></i></a>
+          <a class="nav-link" routerLink="/app" [routerLinkActive]="'text-info'" [routerLinkActiveOptions]="{exact: true}"><i class="fa-solid fa-house fa-xl"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/app/', 'create-post']"><i class="fa-solid fa-circle-plus fa-xl"></i></a>
+          <a class="nav-link" [routerLink]="['/app/', 'create-post']" [routerLinkActive]="'text-info'"[routerLinkActiveOptions]="{exact: true}" ><i class="fa-solid fa-circle-plus fa-xl"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/app/', 'messages']" (click)="logout()"><i class="fa-solid fa-paper-plane fa-xl"></i></a>
+          <a class="nav-link" [routerLink]="['/app/', 'messages']" [routerLinkActive]="'text-info'" [routerLinkActiveOptions]="{exact: true}" (click)="logout()"><i class="fa-solid fa-paper-plane fa-xl"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/app/', username]" ><i class="fa-solid fa-circle-user fa-xl"></i></a>
+          <a class="nav-link" [routerLink]="['/app/', username]" [routerLinkActive]="'text-info'" [routerLinkActiveOptions]="{exact: true}" ><i class="fa-solid fa-circle-user fa-xl"></i></a>
         </li>
       </ul>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0" *ngIf="!user">

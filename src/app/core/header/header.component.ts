@@ -12,7 +12,9 @@ export class HeaderComponent {
      return this.authService.userLoggedIn;
    }
 
-   username = localStorage.getItem('<USERNAME>');
+   get username() {
+     return localStorage.getItem('<USERNAME>');
+   } 
 
   constructor(private authService: AuthService) { }
 

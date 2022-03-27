@@ -38,11 +38,7 @@ export class CreatePostComponent implements OnInit {
   }
 
   createPost() {
-    this.form.value.image = this.imageUrl;
-    
-    console.log(this.form.value);
-    
-    
+    this.postsService.createPost(this.imageUrl, this.form.value.description, this.username)  
   }
 
 }

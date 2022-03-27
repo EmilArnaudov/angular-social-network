@@ -5,5 +5,5 @@ export interface Post {
     createdAt: string;
     likes: string[];
     comments: string[];
-    description: string[];
+    description: string;
 } 
