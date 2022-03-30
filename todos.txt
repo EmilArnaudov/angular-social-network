@@ -1,4 +1,18 @@
 Create directive to highlight the nav bar depending on which page the user is.
 Create a welcome modal when a user register.
 Change typography for different functions of app
-Add template profile pic if not added
+
+write logic for properly loading users main page = own posts + 5 latest posts of people followed sorted by creation time
+add follow funcionality = this is simple just find both users in database and add ids to followers/following
+and add logic for correct displaying in profile page if user is followe
+in the sidebar add 5 most active profiles from followed
+load users own posts in profile (add lightbox with description if we have time if not just lightbox)
+implement search bar to search for other users
+
+add chat functionality
+add check for username when registering new user
+
+
+add suggestion of friends which will be 1.people that follow you and you dont follow, 2.most active followers of people u follow
+
+

@@ -23,11 +23,18 @@ export class ProfileComponent implements OnInit {
     this.route.params.subscribe(params => {
       if (params['username']) {
         this.userService.loadUserInfo(params['username'])
-          .then(data => {
-            this.userData = data;
+          .subscribe(data => {
+            this.userData = data.data();
+            console.log(data.data());
+                    
           })
       }
     })
+  }
+
+  async followUser() {
+    await this.userService.followUser(this.currentUserUsername, this.userData.username);
+
   }
 
   // ngOnInit(): void {

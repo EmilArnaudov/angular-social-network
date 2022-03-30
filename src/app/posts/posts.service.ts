@@ -17,7 +17,7 @@ export class PostsServiceService {
 
     setDoc(docRef, {
       creator: username,
-      creatorProfilePicture: userData?.profilePicture,
+      // creatorProfilePicture: userData?.profilePicture,
       imageUrl: imageUrl,
       createdAt: dateOfCreation,
       likes: [],

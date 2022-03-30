@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
-import { Firestore, collection, getDocs, where, getDoc, updateDoc } from '@angular/fire/firestore';
-import { doc } from 'firebase/firestore';
+import { Firestore, collection, getDocs, getDoc, updateDoc, arrayUnion, onSnapshot, docSnapshots } from '@angular/fire/firestore';
+import { doc, DocumentSnapshot } from 'firebase/firestore';
 import { DocumentData } from '@angular/fire/firestore';
 import { UserProfile } from '../shared/interfaces/user.interface';
 import { Router } from '@angular/router';
 import { ImageUploadService } from '../image-upload.service';
-import { concatMap } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,19 @@ export class UserService {
 
   userProfileData!: UserProfile | any
 
-  constructor(private auth: Auth, private firestore: Firestore, private router: Router, private uploadService: ImageUploadService) { }
+  constructor(private auth: Auth, private firestore: Firestore, private router: Router) { }
+
+  // this null is added because currentUserUsername is always first parameter and is taken from localStorage which according to typescript
+  // can be null
+
+  async followUser(usernameFollower: string | null, usernameFollowing: string) {
+    const followerRef = doc(this.firestore, 'users', usernameFollower ? usernameFollower : '');
+    const followingRef = doc(this.firestore, 'users', usernameFollowing);
+
+    await updateDoc(followerRef, {following: arrayUnion(usernameFollowing)});
+    await updateDoc(followingRef, {followers: arrayUnion(usernameFollower)});
+
+  }
 
   updateUserInfo(username: string, data: object) {
     const docRef = doc(this.firestore, 'users', username);
@@ -28,17 +40,10 @@ export class UserService {
       )
   }
 
-  loadUserInfo(username: string | null): Promise<DocumentData | undefined | UserProfile> {
+  loadUserInfo(username: string | null): Observable<DocumentSnapshot<DocumentData>> {
     const docRef = doc(this.firestore, 'users', username ? username : '');
-    
-    console.log(docRef);
-    
-
-    return getDoc(docRef)
-      .then((response): DocumentData | undefined | UserProfile => {
-        let object = response.data();
-        return object;
-      });
+  
+    return docSnapshots(docRef);
   }
 
   loadUserInfoOnLogin(): Promise<UserProfile> {

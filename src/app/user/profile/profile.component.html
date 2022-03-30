@@ -13,7 +13,11 @@
                         <li>{{userData?.following.length ? userData.following.length : '0'}} following</li>
                         <li>{{userData?.followers.length ? userData.followers.length : '0'}} followers</li>
                     </ul>
-                    <div *ngIf="userData?.username !== currentUserUsername" class="buttons"> <button class="btn btn-info-primary px-4">Message</button> <button class="btn btn-info px-4 ms-3">Follow</button> </div>
+                    <div *ngIf="userData?.username !== currentUserUsername" class="buttons"> 
+                      <button class="btn btn-info-primary px-4">Message</button>
+                      <button *ngIf="!userData?.followers.includes(currentUserUsername)" (click)="followUser()" class="btn btn-info px-4 ms-3">Follow</button>
+                      <button *ngIf="userData?.followers.includes(currentUserUsername)" disabled class="btn btn-info px-4 ms-3">Following</button>
+                     </div>
                 </div>
             </div>
         </div>

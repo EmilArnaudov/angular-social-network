@@ -25,8 +25,8 @@ export class ProfileEditComponent implements OnInit {
   ngOnInit(): void {
       let username = localStorage.getItem('<USERNAME>')
       this.userService.loadUserInfo(username)
-        .then(data => {
-          this.userData = data;
+        .subscribe(data => {
+          this.userData = data.data();
         })  
   }
 
