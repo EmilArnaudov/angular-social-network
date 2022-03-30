@@ -13,21 +13,25 @@ export class PostsServiceService {
   async createPost(imageUrl: string, description: string, username: string | null) {
     let dateOfCreation = Date.now().toString();
     const docRef = doc(this.firestore, 'posts', username ? username : '', 'posts', dateOfCreation);
-    let userData = await this.userService.loadUserInfo(username)
+    this.userService.loadUserInfo(username)
+      .subscribe(data => {
+        let userData = data.data();
+        setDoc(docRef, {
+          creator: username,
+          creatorProfilePicture: userData?.['profilePicture'],
+          imageUrl: imageUrl,
+          createdAt: dateOfCreation,
+          likes: [],
+          comments: [],
+          description: description,
+        })
+          .then(() => {
+            this.router.navigate(['/app']);
+          })
+          .catch(error => console.log(error)
+          );
+      });
 
-    setDoc(docRef, {
-      creator: username,
-      // creatorProfilePicture: userData?.profilePicture,
-      imageUrl: imageUrl,
-      createdAt: dateOfCreation,
-      likes: [],
-      comments: [],
-      description: description,
-    })
-      .then(() => {
-        this.router.navigate(['/app']);
-      })
-      .catch(error => console.log(error)
-      );
+
   }
 }

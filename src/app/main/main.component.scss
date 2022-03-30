@@ -95,3 +95,13 @@ hr {
     outline: 0;
     box-shadow: none
 }
+
+.margin {
+    width: 69%;
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+    align-self: flex-start; /* <-- this is the fix */
+}

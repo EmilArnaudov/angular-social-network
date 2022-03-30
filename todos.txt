@@ -3,8 +3,6 @@ Create a welcome modal when a user register.
 Change typography for different functions of app
 
 write logic for properly loading users main page = own posts + 5 latest posts of people followed sorted by creation time
-add follow funcionality = this is simple just find both users in database and add ids to followers/following
-and add logic for correct displaying in profile page if user is followe
 in the sidebar add 5 most active profiles from followed
 load users own posts in profile (add lightbox with description if we have time if not just lightbox)
 implement search bar to search for other users
