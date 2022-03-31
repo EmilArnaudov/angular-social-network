@@ -11,8 +11,6 @@ import { UserService } from '../user/user.service';
 })
 export class PostsService {
 
-  mainPosts$!: Observable<any>
-
   constructor(private firestore: Firestore, private userService: UserService, private router: Router) { }
 
   async createPost(imageUrl: string, description: string, username: string | null) {
@@ -49,6 +47,7 @@ export class PostsService {
     .pipe(mergeMap((x): string => {
       let userData = x.data();
       let usersFollowing = userData?.['following'];
+      
       return usersFollowing;
     }),
     mergeMap((user: string) => this.loadUserPosts(user)),

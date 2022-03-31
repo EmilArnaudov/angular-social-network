@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DocumentData } from '@angular/fire/firestore';
+import { Subscription } from 'rxjs';
 import { PostsService } from '../posts/posts.service';
 
 @Component({
@@ -8,21 +10,19 @@ import { PostsService } from '../posts/posts.service';
 })
 export class MainComponent  {
 
-  posts$ = this.postsService.loadMainContent();
+  postsSubscription!: Subscription
+  posts = [] as any;
 
   constructor(private postsService: PostsService) { }
 
   ngOnInit(): void {
+    this.postsSubscription = this.postsService.loadMainContent()
+      .subscribe(data => {
+        console.log(data);
+        
+        this.posts.push(data);
+        
+      })
   }
-
-  // ngOnInit(): void {
-  //   this.postsService.findMainContentPosts()
-  //     .subscribe(data => {
-  //       data.forEach(subscription => {
-  //         subscription.subscribe(newData => console.log(newData)
-  //         )
-  //       })
-  //     })
-  // }
 
 }

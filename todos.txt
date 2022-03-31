@@ -10,6 +10,7 @@ implement search bar to search for other users
 add chat functionality
 add check for username when registering new user
 
+use switchmap for search recomendations
 
 add suggestion of friends which will be 1.people that follow you and you dont follow, 2.most active followers of people u follow
 
