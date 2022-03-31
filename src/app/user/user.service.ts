@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
-import { Firestore, collection, getDocs, getDoc, updateDoc, arrayUnion, onSnapshot, docSnapshots } from '@angular/fire/firestore';
-import { doc, DocumentSnapshot } from 'firebase/firestore';
-import { DocumentData } from '@angular/fire/firestore';
+import { Firestore, collection, getDocs, updateDoc, arrayUnion, docSnapshots } from '@angular/fire/firestore';
+import { DocumentData, doc, DocumentSnapshot } from '@angular/fire/firestore';
 import { UserProfile } from '../shared/interfaces/user.interface';
 import { Router } from '@angular/router';
-import { ImageUploadService } from '../image-upload.service';
 import { Observable } from 'rxjs';
 
 @Injectable({

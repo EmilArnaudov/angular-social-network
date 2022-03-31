@@ -34,7 +34,6 @@ export class ProfileComponent implements OnInit {
 
   async followUser() {
     await this.userService.followUser(this.currentUserUsername, this.userData.username);
-
   }
 
   // ngOnInit(): void {

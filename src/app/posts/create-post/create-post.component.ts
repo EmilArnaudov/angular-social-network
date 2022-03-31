@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ImageUploadService } from 'src/app/image-upload.service';
-import { PostsServiceService } from '../posts.service';
+import { PostsService } from '../posts.service';
 
 @Component({
   selector: 'app-create-post',
@@ -16,7 +16,7 @@ export class CreatePostComponent implements OnInit {
   imageUploaded = false;
   username = localStorage.getItem('<USERNAME>');
 
-  constructor(private postsService: PostsServiceService, private imageUploadService: ImageUploadService) { }
+  constructor(private postsService: PostsService, private imageUploadService: ImageUploadService) { }
 
   ngOnInit(): void {
   }
