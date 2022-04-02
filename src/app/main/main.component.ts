@@ -29,7 +29,7 @@ export class MainComponent implements OnInit {
         this.loadingPosts = false;
         this.posts.unshift(data);
       })
-    }, 150);
+    }, 1000);
 
   }
 
