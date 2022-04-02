@@ -9,8 +9,8 @@
                         <p class="fonts text-left">{{userData?.profileDescription}}</p>
                     </div>
                     <ul class="social-list">
-                        <li>{{userData?.posts.length ? userData.posts.length : '0'}} posts</li>
-                        <li>{{userData?.following.length ? userData.following.length : '0'}} following</li>
+                        <li>{{userData?.posts.length > 1 ? userData.posts.length - 1 : '0'}} posts</li>
+                        <li>{{userData?.following.length > 1 ? userData.following.length - 1 : '0'}} following</li>
                         <li>{{userData?.followers.length ? userData.followers.length : '0'}} followers</li>
                     </ul>
                     <div *ngIf="userData?.username !== currentUserUsername" class="buttons"> 
@@ -37,7 +37,7 @@
         </div>
     </div>
 
-    <div class="no-posts mt-4" *ngIf="userData?.posts.length == 0">
+    <div class="no-posts mt-4" *ngIf="userData?.posts.length == 1">
       <i class="fa-solid fa-ghost ghost"></i>
       <p class=" text-secondary">It seems you haven't added any posts yet ..</p>
     </div>

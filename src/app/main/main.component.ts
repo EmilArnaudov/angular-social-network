@@ -8,7 +8,7 @@ import { PostsService } from '../posts/posts.service';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, OnDestroy {
 
   postsSubscription!: Subscription
   posts = [] as any;
@@ -21,18 +21,34 @@ export class MainComponent implements OnInit {
   // long and username was needed before it had completed saving it
   ngOnInit(): void {
     this.loadingPosts = true;
+
+    
     setTimeout(() => {
-      this.loadingPosts = false;
+
+      
       // clear array
       this.posts.splice(0, this.posts.length)
       //
-      this.postsService.loadMainContent()
-      .subscribe(data => {
-        console.log(data);
-        this.posts.unshift(data);
-      })
-    }, 1000);
+              
 
+
+      this.postsSubscription = this.postsService.loadMainContent()
+      .subscribe(data => {
+        this.loadingPosts = false;
+        if (data) {
+          this.posts.unshift(data);
+        }
+
+        this.posts.sort((a: any,b:any) => a.createdAt > b.createdAt)
+      })
+    }, 800);
+
+  }
+
+  ngOnDestroy(): void {
+    console.log('unsubscribing');
+    
+    this.postsSubscription.unsubscribe();
   }
 
 }

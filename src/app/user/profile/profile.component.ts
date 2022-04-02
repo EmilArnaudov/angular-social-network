@@ -29,6 +29,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.routeSubscription = this.route.params.subscribe(params => {
       if (params['username']) {
         //clear array 
+        console.log(this.userPostsContent);
+        
         this.userPostsContent.splice(0, this.userPostsContent.length);
         //
 
@@ -39,7 +41,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
           }), mergeMap((post: string): ObservableInput<DocumentData | undefined | Post> => this.postService.loadPostContent(post)))
           .subscribe(postContent => {
             if (postContent) {
-              this.userPostsContent.unshift(postContent)
+              console.log(this.userPostsContent);
+              if (postContent) {
+                this.userPostsContent.unshift(postContent)
+              }
+              
             }
             
           }

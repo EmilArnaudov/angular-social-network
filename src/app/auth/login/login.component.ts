@@ -23,9 +23,10 @@ export class LoginComponent implements OnInit {
     
     let result = await this.authService.login(this.form.value.email, this.form.value.password)
     if (result == null) {
-      console.log(localStorage.getItem('<USERNAME>'));
       
-      this.router.navigate(['/app'])
+        this.router.navigate(['/app'])
+
+      
     } else if (result.isValid == false ) {
       this.fireBaseErrorMessage = result.message;
     }
