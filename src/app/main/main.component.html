@@ -1,4 +1,4 @@
-<div class="component-container">
+<div class="component-container" [ngClass]="posts.length == 0 ? 'justify-content-end' : ''">
     <div *ngIf="posts.length > 0">
         <div class="container margin mb-1" *ngFor="let post of posts">
             <ng-container *ngIf="post">
@@ -19,7 +19,7 @@
                                     <div class="d-flex flex-row muted-color"> <span>2 comments</span> <span class="ml-2">Share</span> </div>
                                 </div>
                                 <hr>
-                                <div class="comments">
+                                <!-- <div class="comments">
                                     <div class="d-flex flex-row mb-2"> <img src="https://i.imgur.com/9AZ2QX1.jpg" width="40" class="rounded-image">
                                         <div class="d-flex flex-column ml-2"> <span class="name">Daniel Frozer</span> <small class="comment-text">I like this alot! thanks alot</small>
                                             <div class="d-flex flex-row align-items-center status"> <small>Like</small> <small>Reply</small> <small>Translate</small> <small>18 mins</small> </div>
@@ -33,7 +33,7 @@
                                     <div class="comment-input"> <input type="text" class="form-control">
                                         <div class="fonts"> <i class="fa fa-camera"></i> </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -42,11 +42,13 @@
         </div>
     
     </div>
-    <div *ngIf="posts.length === 0">
-        It seems you have no posts to show. Try following people or reating a post.
+    <div class="no-posts col-md-6 text-center" *ngIf="posts.length == 0">
+        <i class="fa-solid fa-ghost ghost"></i>
+        <p class=" text-secondary">Nothing to show</p>
+        <p class=" text-secondary">Use the search bar to find people you know</p>
     </div>
     <div class="sticky">
         <app-sidebar></app-sidebar>
     </div>
 
-  </div>
+</div>
