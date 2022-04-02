@@ -72,9 +72,7 @@ export class AuthService {
     try {
       await signInWithEmailAndPassword(this.auth, email, password);
       const userData = await this.userService.loadUserInfoOnLogin();
-      console.log(userData.username);
-      
-      await localStorage.setItem('<USERNAME>', userData.username)
+      localStorage.setItem('<USERNAME>', userData.username)
       return null;
     } catch (error) {
       return {isValid: false, message: 'Username or password incorrect.'};

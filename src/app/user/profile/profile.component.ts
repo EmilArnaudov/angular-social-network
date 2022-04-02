@@ -27,22 +27,20 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
    ngOnInit(): void {
     this.routeSubscription = this.route.params.subscribe(params => {
-      console.log(params);
-      console.log(params['username']);
-      
       if (params['username']) {
+        //clear array 
+        this.userPostsContent.splice(0, this.userPostsContent.length);
+        //
+
         this.userService.loadUserInfo(params['username'])
           .pipe(mergeMap((data: DocumentSnapshot): ObservableInput<any> => {
-            this.userData = data.data();
-            console.log(this.userData);
-            
+            this.userData = data.data();           
             return this.userData['posts'].length > 0 ? this.userData['posts'] : [];
           }), mergeMap((post: string): ObservableInput<DocumentData | undefined | Post> => this.postService.loadPostContent(post)))
           .subscribe(postContent => {
             if (postContent) {
               this.userPostsContent.unshift(postContent)
             }
-            console.log(this.userPostsContent);
             
           }
           )

@@ -19,7 +19,10 @@ export class SearchService {
         snapshot.forEach(docData => {
           let user = docData.data();
           if (user['username'].toLowerCase().includes(query.toLowerCase())) {
-            arr.push(user);
+            if (arr.length < 5) {
+              arr.push(user);
+              console.log(arr);
+            }
           }
         })
         return arr;

@@ -21,6 +21,9 @@ export class MainComponent implements OnInit {
   // long and username was needed before it had completed saving it
   ngOnInit(): void {
     setTimeout(() => {
+      // clear array
+      this.posts.splice(0, this.posts.length)
+      //
       this.postsService.loadMainContent()
       .subscribe(data => {
         this.loadingPosts = false;

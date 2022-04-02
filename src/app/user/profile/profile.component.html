@@ -30,9 +30,9 @@
 
     <div *ngIf="userData?.posts.length > 0" class="row text-center text-lg-start">
 
-        <div height="300" width="400" *ngFor="let post of userPostsContent" class="col-lg-3 col-md-4 col-6">
+        <div *ngFor="let post of userPostsContent" class="col-lg-3 col-md-4 col-6">
           <a class="d-block mb-4 h-100">
-            <img class="img-fluid img-thumbnail" [src]="post.imageUrl" alt="">
+            <img class="thumbnail img-thumbnail" height="auto" width="400"  [src]="post.imageUrl" alt="">
           </a>
         </div>
         <!-- <div class="col-lg-3 col-md-4 col-6">
