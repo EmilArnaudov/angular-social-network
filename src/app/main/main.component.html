@@ -42,7 +42,10 @@
         </div>
     
     </div>
-    <div class="no-posts col-md-6 text-center" *ngIf="posts.length == 0">
+
+    <div class="spin-container no-posts"><div class="spin col-md-6" *ngIf="this.loadingPosts"></div></div>
+
+    <div class="no-posts col-md-6 text-center" *ngIf="posts.length == 0 && !this.loadingPosts">
         <i class="fa-solid fa-ghost ghost"></i>
         <p class=" text-secondary">Nothing to show</p>
         <p class=" text-secondary">Use the search bar to find people you know</p>
@@ -52,3 +55,6 @@
     </div>
 
 </div>
+
+
+

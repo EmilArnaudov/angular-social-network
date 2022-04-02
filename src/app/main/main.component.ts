@@ -12,7 +12,7 @@ export class MainComponent implements OnInit {
 
   postsSubscription!: Subscription
   posts = [] as any;
-  loadingPosts = true;
+  loadingPosts!: boolean;
 
   constructor(private postsService: PostsService) { }
 
@@ -20,13 +20,15 @@ export class MainComponent implements OnInit {
   //Set timeout is needed here because of a bug that didnt load main page right after logging in because localstorage setItem took too
   // long and username was needed before it had completed saving it
   ngOnInit(): void {
+    this.loadingPosts = true;
     setTimeout(() => {
+      this.loadingPosts = false;
       // clear array
       this.posts.splice(0, this.posts.length)
       //
       this.postsService.loadMainContent()
       .subscribe(data => {
-        this.loadingPosts = false;
+        console.log(data);
         this.posts.unshift(data);
       })
     }, 1000);
