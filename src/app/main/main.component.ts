@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { DocumentData } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { PostsService } from '../posts/posts.service';
@@ -8,21 +8,26 @@ import { PostsService } from '../posts/posts.service';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent  {
+export class MainComponent implements OnInit {
 
   postsSubscription!: Subscription
   posts = [] as any;
+  loadingPosts = true;
 
   constructor(private postsService: PostsService) { }
 
+
+  //Set timeout is needed here because of a bug that didnt load main page right after logging in because localstorage setItem took too
+  // long and username was needed before it had completed saving it
   ngOnInit(): void {
-    this.postsSubscription = this.postsService.loadMainContent()
+    setTimeout(() => {
+      this.postsService.loadMainContent()
       .subscribe(data => {
-        console.log(data);
-        
-        this.posts.push(data);
-        
+        this.loadingPosts = false;
+        this.posts.unshift(data);
       })
+    }, 150);
+
   }
 
 }

@@ -68,15 +68,19 @@ export class AuthService {
       this.router.navigate(['/login'])})
   }
 
-  login(email: string, password: string) {
-    return signInWithEmailAndPassword(this.auth, email, password)
-      .then(async () => {
-        const userData = await this.userService.loadUserInfoOnLogin();
-        localStorage.setItem('<USERNAME>', userData.username);
-        this.router.navigate(['/app'])})
-      .catch(error => {
-        return {isValid: false, message: 'Username or password incorrect.'};
-      })
+  async login(email: string, password: string) {
+    try {
+      await signInWithEmailAndPassword(this.auth, email, password);
+      const userData = await this.userService.loadUserInfoOnLogin();
+      console.log(userData.username);
+      
+      await localStorage.setItem('<USERNAME>', userData.username)
+      return null;
+    } catch (error) {
+      return {isValid: false, message: 'Username or password incorrect.'};
+    }
+
+
   }
 
 

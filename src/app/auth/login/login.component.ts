@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -13,22 +14,22 @@ export class LoginComponent implements OnInit {
 
   fireBaseErrorMessage?: string;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  login() {
+  async login() {
     
-    this.authService.login(this.form.value.email, this.form.value.password)
-      .then((result) => {
-        if (result == null) {
-          return;
-        } else if (result.isValid == false ) {
-          this.fireBaseErrorMessage = result.message;
-        }
-      })
-      ;
+    let result = await this.authService.login(this.form.value.email, this.form.value.password)
+    if (result == null) {
+      console.log(localStorage.getItem('<USERNAME>'));
+      
+      this.router.navigate(['/app'])
+    } else if (result.isValid == false ) {
+      this.fireBaseErrorMessage = result.message;
+    }
+
   }
 
 }

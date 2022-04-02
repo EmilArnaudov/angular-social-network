@@ -57,7 +57,7 @@ export class PostsService {
 
   }
 
-  private loadUserPosts(username: string) {
+  loadUserPosts(username: string) {
     return this.userService.loadUserInfo(username)
       .pipe(map((data) => {
         let userData = data.data();
@@ -65,9 +65,11 @@ export class PostsService {
       }))
   }
 
-  private loadPostContent(postId: string): Observable<DocumentData | undefined> {
+  loadPostContent(postId: string): Observable<DocumentData | undefined> {
     const docRef = doc(this.firestore, 'posts', postId);
 
     return docSnapshots(docRef).pipe(map((x) => x.data()))
   }
+
+
 }

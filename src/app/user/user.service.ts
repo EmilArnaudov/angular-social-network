@@ -44,20 +44,17 @@ export class UserService {
     return docSnapshots(docRef);
   }
 
-  loadUserInfoOnLogin(): Promise<UserProfile> {
+  async loadUserInfoOnLogin(): Promise<UserProfile> {
     const collectionRef = collection(this.firestore, 'users');
 
-    return getDocs(collectionRef)
-      .then((response): UserProfile => {
-        let users = response.docs.map((item) => {
-          return {...item.data(), id: item.id}
-        });
-        
-        this.userProfileData = users.filter((x: any) => x.email == this.auth.currentUser?.email)[0];
+    let response = await getDocs(collectionRef)
 
-        return this.userProfileData
-      });
+    let users = response.docs.map((item) => {
+      return {...item.data(), id: item.id}
+    });
 
+    this.userProfileData = users.filter((x: any) => x.email == this.auth.currentUser?.email)[0];
+    return this.userProfileData
 
   }
 }

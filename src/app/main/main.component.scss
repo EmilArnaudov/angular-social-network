@@ -105,3 +105,8 @@ hr {
     top: 0;
     align-self: flex-start; /* <-- this is the fix */
 }
+
+.profile-image {
+    border-radius: 50%;
+    border: 1px solid #d2e3fc;
+}

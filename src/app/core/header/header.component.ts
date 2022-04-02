@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit{
   }
 
   clearSearchBar() {
-
+    this.customValue = '';
   }
 
   logout() {

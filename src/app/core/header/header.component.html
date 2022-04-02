@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
   <div class="container" [ngClass]="user ? 'app-mode': ''">
-    <a routerLink="/" class="navbar-brand"><span class="text-info">Social</span>Network</a>
+    <a routerLink="/app" class="navbar-brand"><span class="text-info">Social</span>Network</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -8,9 +8,9 @@
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0" *ngIf="user">
         <form>
           <div class="filter-wrapper">
-              <input #search class="form-control me-2" [value]="customValue" (mouseenter)="showSearchFilter(select)" (focusout)="hideSearchFilter(select)" type="text" [formControl]="queryField" placeholder="Search" aria-label="Search" >
+              <input #search class="form-control me-2" [(ngModel)]="customValue" (mouseenter)="showSearchFilter(select)" (focusout)="hideSearchFilter(select)" type="text" [formControl]="queryField" placeholder="Search" aria-label="Search" >
               <div #select class="filter-select hidden" (mouseleave)="hideSearchFilter(select)">
-                <div class="profile" (click)="clearSearchBar()" *ngFor="let user of results" [routerLink]="['/app/', user.username]"> <img [src]="user.profilePicture" class="img-fluid profile-image" width="40">
+                <div class="profile" (click)="clearSearchBar()" *ngFor="let user of results" [routerLink]="['/app/', user.username]"> <img [src]="user.profilePicture" class=" profile-image" width="40" height="40">
                   <div class="ml-3 user">
                       <h5 class="name">{{user.firstName}} {{user.lastName}}</h5>
                       <p class="mail">{{user.username}}</p>
@@ -28,7 +28,7 @@
           <a class="nav-link" [routerLink]="['/app/', 'create-post']" [routerLinkActive]="'text-info'"[routerLinkActiveOptions]="{exact: true}" ><i class="fa-solid fa-circle-plus fa-xl"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/app/', 'messages']" [routerLinkActive]="'text-info'" [routerLinkActiveOptions]="{exact: true}" (click)="logout()"><i class="fa-solid fa-paper-plane fa-xl"></i></a>
+          <a class="nav-link"  [routerLinkActive]="'text-info'" [routerLinkActiveOptions]="{exact: true}" (click)="logout()"><i class="fa-solid fa-paper-plane fa-xl"></i></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/app/', username]" [routerLinkActive]="'text-info'" [routerLinkActiveOptions]="{exact: true}" ><i class="fa-solid fa-circle-user fa-xl"></i></a>
