@@ -1,6 +1,8 @@
-import { Component, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/auth.service';
+import { SearchService } from '../search.service';
 
 @Component({
   selector: 'app-header',
@@ -15,18 +17,29 @@ export class HeaderComponent implements OnInit{
 
    get username() {
      return localStorage.getItem('<USERNAME>');
-   } 
+   }
+
+  customValue: any = ''; 
 
    form!: FormGroup;
    results: any[] = [];
    queryField: FormControl = new FormControl();
 
-  constructor(private authService: AuthService, private renderer: Renderer2) { }
+
+  constructor(private authService: AuthService, private renderer: Renderer2, private searchService: SearchService) { }
 
   ngOnInit(): void {
     this.queryField.valueChanges
-      .subscribe(result => console.log(result)
-      )
+    .pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((query: string) => this.searchService.searchQuery(query))
+    )
+    .subscribe(users => this.results = users)
+  }
+
+  clearSearchBar() {
+
   }
 
   logout() {
