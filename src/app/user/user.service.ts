@@ -22,14 +22,14 @@ export class UserService {
     const followerRef = doc(this.firestore, 'users', usernameFollower ? usernameFollower : '');
     const followingRef = doc(this.firestore, 'users', usernameFollowing);
 
-    console.log('UPDATING DOC: FOLLOWER: ', usernameFollower);
-    console.log('UPDATING DOC: FOLLOWING: ', usernameFollowing);
+    // console.log('UPDATING DOC: FOLLOWER: ', usernameFollower);
+    // console.log('UPDATING DOC: FOLLOWING: ', usernameFollowing);
     
 
     await updateDoc(followerRef, {following: arrayUnion(usernameFollowing)});
     await updateDoc(followingRef, {followers: arrayUnion(usernameFollower)});
 
-    console.log('INFO UPDATE FINISHED');
+    // console.log('INFO UPDATE FINISHED');
     
   }
 

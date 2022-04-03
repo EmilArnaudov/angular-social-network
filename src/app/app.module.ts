@@ -22,6 +22,7 @@ import { FormsModule } from '@angular/forms';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { CreatePostComponent } from './posts/create-post/create-post.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     ProfileComponent,
     ProfileEditComponent,
     CreatePostComponent,
-    SidebarComponent
+    SidebarComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

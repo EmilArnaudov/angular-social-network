@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { DocumentData } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { PostsService } from '../posts/posts.service';
+import { Post } from '../shared/interfaces/post.interface';
 
 @Component({
   selector: 'app-main',
@@ -33,7 +34,11 @@ export class MainComponent implements OnInit, OnDestroy {
       .subscribe(data => {
         this.loadingPosts = false;
         if (data) {
-          this.posts.push(data);
+          let isUnique = this.checkUnique(data['createdAt'])
+          if(isUnique) {
+            this.posts.push(data);
+          }
+
         }
         
 
@@ -44,8 +49,12 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     console.log('unsubscribing');
-    
     this.postsSubscription.unsubscribe();
+    this.posts.splice(0, this.posts.length)
+  }
+
+  private checkUnique(createdAt: string) {
+    return !this.posts.find((post: Post) => post.createdAt  == createdAt);
   }
 
 }
