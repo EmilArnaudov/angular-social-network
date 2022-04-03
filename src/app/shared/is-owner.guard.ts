@@ -7,7 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class IsOwnerGuard implements CanActivate {
 
-  currentUserUsername = localStorage.getItem('<USERNAME>');
+  get currentUserUsername() {
+    return localStorage.getItem('<USERNAME>');
+  }
 
   constructor(private router: Router) {}
 
@@ -15,8 +17,13 @@ export class IsOwnerGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
+    console.log('IS OWNER GUARD TRIGGERED ');
+    
     return new Promise((resolve, reject) => {
       let profileToAccessUsername = route.params['username'];
+
+      console.log('LOCAL NAME: ', this.currentUserUsername);
+      console.log('ROUTE NAME: ', route.params['username']);
 
       if (this.currentUserUsername === profileToAccessUsername) {
         resolve(true);

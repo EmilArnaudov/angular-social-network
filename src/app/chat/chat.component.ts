@@ -10,10 +10,16 @@ import { ChatService } from './chat.service';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit, OnDestroy {
-  private participant!: string
-  contactSubscription!: Subscription
+  private participant!: string;
+  contactSubscription!: Subscription;
+  messagesObservableOne!: Subscription;
+  messagesObservableTwo!: Subscription | undefined;
 
   participantOne = localStorage.getItem('<USERNAME>') as string;
+
+  get userProfilePicture() {
+    return localStorage.getItem('<PROFILEPIC>') as string;
+  }
 
   get participantTwo(): string {
     return this.participant
@@ -21,13 +27,15 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   set participantTwo(value) {
     this.participant = value;
-    this.chatService.loadMessages(this.participantOne as string, this.participantTwo)
+    this.messagesObservableOne = this.chatService.loadMessages(this.participantOne as string, this.participantTwo)
       .subscribe(async (messagesObservable) => {
         if (messagesObservable == null) {
           await this.chatService.createNewChat(this.participantOne as string, this.participantTwo)
+          this.messages.splice(0, this.contacts.length-1);
+          this.participantTwo = this.participantTwo;
         }
 
-        messagesObservable?.subscribe(messages => {this.messages = messages.data()?.['messages']; console.log(this.messages)}
+        this.messagesObservableTwo = messagesObservable?.subscribe(messages => {this.messages = messages.data()?.['messages']; console.log(this.messages)}
         );
       })
   }
@@ -56,8 +64,6 @@ export class ChatComponent implements OnInit, OnDestroy {
           }
         }
       })
-    
-
   }
 
   handleSubmit(event: any) {
@@ -82,6 +88,10 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.contactSubscription.unsubscribe();
+    // this.messagesObservableOne.unsubscribe();
+    if ( this.messagesObservableTwo) {
+      this.messagesObservableTwo.unsubscribe();
+    }
     console.log('unsubscribing');
     this.contacts.splice(0, this.contacts.length-1);
     

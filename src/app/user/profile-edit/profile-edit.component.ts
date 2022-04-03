@@ -47,7 +47,10 @@ export class ProfileEditComponent implements OnInit {
     const path = `images/profile/${username}`
 
     this.imageUploadService.uploadImage(image, path)
-      .subscribe(profilePicture => this.profilePictureUrl = profilePicture);
+      .subscribe(profilePicture => {
+        localStorage.setItem('<PROFILEPIC>', profilePicture)
+        this.profilePictureUrl = profilePicture
+      });
     
     this.pictureUploaded = true;
   }

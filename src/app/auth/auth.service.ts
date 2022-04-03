@@ -48,6 +48,7 @@ export class AuthService {
         })
           .then(result => {
             localStorage.setItem('<USERNAME>', user.username);
+            localStorage.setItem('<PROFILEPIC>', 'https://firebasestorage.googleapis.com/v0/b/socialnetwork-9b824.appspot.com/o/images%2Fprofile%2Fdefault-profile.jpg?alt=media&token=acf5080c-4843-4962-8c93-583d52659e88');
             this.router.navigate(['/app']);
           })
           .catch(error => {
@@ -73,6 +74,7 @@ export class AuthService {
       await signInWithEmailAndPassword(this.auth, email, password);
       const userData = await this.userService.loadUserInfoOnLogin();
       localStorage.setItem('<USERNAME>', userData.username)
+      localStorage.setItem('<PROFILEPIC>', userData.profilePicture)
       return null;
     } catch (error) {
       return {isValid: false, message: 'Username or password incorrect.'};

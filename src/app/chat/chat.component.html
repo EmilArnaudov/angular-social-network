@@ -22,7 +22,7 @@
             <div class="chat">
                 <div class="chat-header clearfix">
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div *ngIf="contacts.length > 0" class="col-lg-6">
                             <a data-toggle="modal" data-target="#view_info">
                                 <img height="45px" width="45px" [src]="participantData?.profilePicture" alt="avatar">
                             </a>
@@ -33,12 +33,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="chat-history">
+                <div *ngIf="contacts.length > 0" class="chat-history">
                     <ul class="m-b-0">
                         <li *ngFor="let message of messages" class="clearfix">
                             <div class="message-data" [ngClass]="message?.owner == participantOne ? 'text-end' : ''">
                                 <span class="message-data-time">{{message.timeSent}}</span>
-                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
+                                <img height="40px" width="45px" [src]="message?.owner == participantOne ? userProfilePicture : participantData?.profilePicture" alt="avatar">
                             </div>
                             <div class="message" [ngClass]="message?.owner == participantOne ? ['other-message', 'float-right'] : 'my-message'" > {{message?.content}} </div>
                         </li>
@@ -51,7 +51,7 @@
                         </li>                                -->
                     </ul>
                 </div>
-                <div class="chat-message clearfix">
+                <div *ngIf="contacts.length > 0" class="chat-message clearfix">
                     <div class="input-group mb-0">
                         <div class="input-group-prepend">
                             <span class="input-group-text" (click)="sendMessage()"><i class="fa fa-send"></i></span>
@@ -59,6 +59,13 @@
                         <input type="text" class="form-control" (keydown)="handleSubmit($event)" [(ngModel)]="message" placeholder="Enter text here...">                       
                     </div>
                 </div>
+
+                <div *ngIf="contacts.length == 0" class="no-contacts">
+                    <i class="fa-solid fa-ghost no-content text-info"></i>
+                    <p class="text-secondary">No available contacts</p>
+                    <p class="text-secondary">Use the search bar to find people you know</p>
+                </div>
+
             </div>
         </div>
     </div>
