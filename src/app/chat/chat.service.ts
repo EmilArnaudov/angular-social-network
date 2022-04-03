@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { addDoc, docSnapshots, Firestore, getDoc, getDocs, query, setDoc, where } from '@angular/fire/firestore';
+import { addDoc, arrayUnion, docSnapshots, Firestore, getDoc, getDocs, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
 import { collection, doc } from 'firebase/firestore';
 import { from, mergeMap, ObservableInput, of } from 'rxjs';
 
+
+import { ChatMessage } from '../shared/interfaces/chatMessage.interface';
 import { UserService } from '../user/user.service';
 
 @Injectable({
@@ -10,11 +12,28 @@ import { UserService } from '../user/user.service';
 })
 export class ChatService {
 
-  username = localStorage.getItem('<USERNAME>');
+  username = localStorage.getItem('<USERNAME>') as string;
 
   constructor(private firestore: Firestore, private userService: UserService) { }
 
-  sendMessage(message: string) {
+  sendMessage(messageContent: string, participantOne: string, participantTwo: string) {
+
+    let timeSent = this.getTimeStamp();
+
+    let chatMessage: ChatMessage = {
+      owner: this.username,
+      content: messageContent,
+      timeSent
+    }
+
+    this.findChatId(participantOne, participantTwo)
+      .then(async (id) => {
+        if (id) {
+          const docRef = doc(this.firestore, 'chats', id)
+          await updateDoc(docRef, {messages: arrayUnion(chatMessage)});
+        }
+        
+      })
 
   }
 
@@ -66,6 +85,15 @@ export class ChatService {
 
     console.log(docRef.id);
     
+  }
+
+  private getTimeStamp() {
+    const now = new Date();
+
+    const date = now.getUTCFullYear() + '/' + (now.getUTCMonth() + 1) + '/' + now.getUTCDate();
+    const time = now.getUTCHours() + ':' + now.getUTCMinutes() + ':' + now.getUTCSeconds()
+
+    return (date + ' ' + time)
   }
 
 }

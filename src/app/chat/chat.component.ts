@@ -13,7 +13,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   private participant!: string
   contactSubscription!: Subscription
 
-  participantOne = localStorage.getItem('<USERNAME>')
+  participantOne = localStorage.getItem('<USERNAME>') as string;
 
   get participantTwo(): string {
     return this.participant
@@ -36,7 +36,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   message: string = ''
   contacts = [] as any;
-  messages: DocumentData | undefined = [];
+  messages = [] as any;
 
   constructor(private chatService: ChatService) { }
 
@@ -67,7 +67,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   sendMessage() {
-    this.chatService.loadContacts();
+    this.chatService.sendMessage(this.message, this.participantOne, this.participantTwo);
+    this.message = '';
   }
 
   selectParticipant(participantUsername: string) {
