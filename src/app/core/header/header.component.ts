@@ -39,6 +39,7 @@ export class HeaderComponent implements OnInit{
   }
 
   clearSearchBar() {
+    this.results.splice(0, this.results.length);
     this.customValue = '';
   }
 

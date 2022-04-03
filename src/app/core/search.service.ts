@@ -21,7 +21,6 @@ export class SearchService {
           if (user['username'].toLowerCase().includes(query.toLowerCase())) {
             if (arr.length < 5) {
               arr.push(user);
-              console.log(arr);
             }
           }
         })

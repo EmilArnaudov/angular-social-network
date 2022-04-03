@@ -8,13 +8,16 @@
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0" *ngIf="user">
         <form>
           <div class="filter-wrapper">
-              <input #search class="form-control me-2" [(ngModel)]="customValue" (mouseenter)="showSearchFilter(select)" (focusout)="hideSearchFilter(select)" type="text" [formControl]="queryField" placeholder="Search" aria-label="Search" >
-              <div #select class="filter-select hidden" (mouseleave)="hideSearchFilter(select)">
+              <input #search class="form-control me-2" [(ngModel)]="customValue" (focus)="showSearchFilter(select)" (mouseenter)="showSearchFilter(select)" (mouseleave)="hideSearchFilter(select)" type="text" [formControl]="queryField" placeholder="Search" aria-label="Search" >
+              <div #select class="filter-select hidden" (mouseenter)="showSearchFilter(select)" (mouseleave)="hideSearchFilter(select)">
                 <div class="profile" (click)="clearSearchBar()" *ngFor="let user of results" [routerLink]="['/app/', user.username]"> <img [src]="user.profilePicture" class=" profile-image" width="40" height="40">
                   <div class="ml-3 user">
                       <h5 class="name">{{user.firstName}} {{user.lastName}}</h5>
                       <p class="mail">{{user.username}}</p>
                   </div>
+                  <div *ngIf="results.length == 0" class="ml-3 user">
+                    <p class="mail">No matches</p>
+                </div>
                 </div>              
             </div>
           </div>
