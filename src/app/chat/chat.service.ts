@@ -12,7 +12,9 @@ import { UserService } from '../user/user.service';
 })
 export class ChatService {
 
-  username = localStorage.getItem('<USERNAME>') as string;
+  get username() {
+   return  localStorage.getItem('<USERNAME>') as string;
+  }
 
   constructor(private firestore: Firestore, private userService: UserService) { }
 
