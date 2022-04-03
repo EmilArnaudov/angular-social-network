@@ -28,11 +28,11 @@
         <h4 class="text-secondary"> Posts </h4>
     </div>
 
-    <div *ngIf="userData?.posts.length > 0" class="row text-center text-lg-start">
+    <div *ngIf="userData?.posts.length > 1" class="row text-center text-lg-start">
 
         <div *ngFor="let post of userPostsContent" class="col-lg-3 col-md-4 col-6">
           <a class="d-block mb-4 h-100">
-            <img class="thumbnail img-thumbnail" height="auto" width="400"  [src]="post.imageUrl" alt="">
+            <img class="thumbnail img-thumbnail" width="400"  [src]="post.imageUrl" alt="">
           </a>
         </div>
     </div>
