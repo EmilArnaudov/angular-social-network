@@ -36,7 +36,10 @@
         <li class="nav-item">
           <a class="nav-link" style="padding: 0;" [routerLink]="['/app/', username]" [routerLinkActive]="'text-info'" [routerLinkActiveOptions]="{exact: true}" ><img class="profile-image" [src]="userProfilePic" width="39px" height="38px"></a>
         </li>
-        <a (click)="logout()" >logout</a>
+        <li class="nav-item">
+          <a class="nav-link" ><i (click)="logout()" class="logout bi bi-door-open-fill fa-xl"></i></a>
+        </li>
+
       </ul>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0" *ngIf="!user">
         <li class="nav-item">

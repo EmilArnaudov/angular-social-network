@@ -77,3 +77,13 @@ input {
 .hidden {
     display: none;
 }
+
+.logout {
+    padding-left: 21px;
+    border-left: 1px solid gray;
+}
+
+.logout:hover {
+    cursor: pointer;
+
+}

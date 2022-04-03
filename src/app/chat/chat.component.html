@@ -36,9 +36,10 @@
                 <div *ngIf="contacts.length > 0" class="chat-history">
                     <ul class="m-b-0">
                         <li *ngFor="let message of messages" class="clearfix">
-                            <div class="message-data" [ngClass]="message?.owner == participantOne ? 'text-end' : ''">
+                            <div class="message-data" [ngClass]="message?.owner == participantOne ? 'text-end' : 'text-start'">
+                                <img *ngIf="message?.owner != participantOne" height="40px" width="45px" [src]="participantData?.profilePicture" alt="avatar">
                                 <span class="message-data-time">{{message.timeSent}}</span>
-                                <img height="40px" width="45px" [src]="message?.owner == participantOne ? userProfilePicture : participantData?.profilePicture" alt="avatar">
+                                <img *ngIf="message?.owner == participantOne" height="40px" width="45px" [src]="userProfilePicture" alt="avatar">
                             </div>
                             <div class="message" [ngClass]="message?.owner == participantOne ? ['other-message', 'float-right'] : 'my-message'" > {{message?.content}} </div>
                         </li>
