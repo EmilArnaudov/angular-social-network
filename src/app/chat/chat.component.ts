@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { DocumentData } from '@angular/fire/firestore';
+import { Observable, Subscription } from 'rxjs';
 import { UserProfile } from '../shared/interfaces/user.interface';
 import { ChatService } from './chat.service';
 
@@ -13,19 +14,29 @@ export class ChatComponent implements OnInit, OnDestroy {
   contactSubscription!: Subscription
 
   participantOne = localStorage.getItem('<USERNAME>')
+
   get participantTwo(): string {
     return this.participant
   }
 
   set participantTwo(value) {
     this.participant = value;
-    this.chatService.loadMessages(this.participantOne as any, this.participantTwo)
+    this.chatService.loadMessages(this.participantOne as string, this.participantTwo)
+      .subscribe(async (messagesObservable) => {
+        if (messagesObservable == null) {
+          await this.chatService.createNewChat(this.participantOne as string, this.participantTwo)
+        }
+
+        messagesObservable?.subscribe(messages => {this.messages = messages.data()?.['messages']; console.log(this.messages)}
+        );
+      })
   }
 
   participantData!: UserProfile;
 
   message: string = ''
   contacts = [] as any;
+  messages: DocumentData | undefined = [];
 
   constructor(private chatService: ChatService) { }
 
