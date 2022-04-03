@@ -19,6 +19,10 @@ export class HeaderComponent implements OnInit{
      return localStorage.getItem('<USERNAME>');
    }
 
+   get userProfilePic() {
+     return localStorage.getItem('<PROFILEPIC>');
+   }
+
   customValue: any = ''; 
 
    form!: FormGroup;

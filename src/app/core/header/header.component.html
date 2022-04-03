@@ -34,7 +34,7 @@
           <a class="nav-link"  [routerLink]="['/app/','messages', username]" [routerLinkActive]="'text-info'" [routerLinkActiveOptions]="{exact: true}"><i class="fa-solid fa-paper-plane fa-xl"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/app/', username]" [routerLinkActive]="'text-info'" [routerLinkActiveOptions]="{exact: true}" ><i class="fa-solid fa-circle-user fa-xl"></i></a>
+          <a class="nav-link" style="padding: 0;" [routerLink]="['/app/', username]" [routerLinkActive]="'text-info'" [routerLinkActiveOptions]="{exact: true}" ><img class="profile-image" [src]="userProfilePic" width="39px" height="38px"></a>
         </li>
         <a (click)="logout()" >logout</a>
       </ul>
