@@ -7,16 +7,16 @@
                         <div class="card border">
                             <div class="d-flex justify-content-between p-2 px-3">
                                 <div class="d-flex flex-row align-items-center"> <img [src]="post?.creatorProfilePicture" width="50" height="50" class="profile-image">
-                                    <div class="d-flex flex-column ml-2"> <span class="font-weight-bold">{{post?.creator}}</span> <small class="text-primary">Collegues</small> </div>
+                                    <div class="d-flex flex-column ml-2"> <span class="font-weight-bold creator">{{post?.creator}}</span> </div>
                                 </div>
-                                <div class="d-flex flex-row mt-1 ellipsis"> <small class="mr-2">20 mins</small> <i class="fa fa-ellipsis-h"></i> </div>
+                                <div class="d-flex flex-row mt-1 ellipsis"></div>
                             </div> <img [src]="post?.imageUrl" class="img-fluid">
                             <div class="p-2">
                                 <p class="text-justify">{{post?.description}}</p>
                                 <hr>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div class="d-flex flex-row icons d-flex align-items-center"> <i class="fa fa-heart"></i> <i class="fa fa-smile-o ml-2"></i> </div>
-                                    <div class="d-flex flex-row muted-color"> <span>2 comments</span> <span class="ml-2">Share</span> </div>
+                                    <div class="d-flex flex-row icons d-flex align-items-center"> <i class="fa-regular fa-heart"></i></div>
+                                    <div class="d-flex flex-row muted-color"></div>
                                 </div>
                                 <hr>
                                 <!-- <div class="comments">

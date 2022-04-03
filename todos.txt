@@ -1,14 +1,11 @@
 Create a welcome modal when a user register.
-Change typography for different functions of app
 
 
 add lightbox to posts
 
-
+add 404 page
 add check for username when registering new user
 add profile pic in navbar
-add profile pic in chat
 
+implement most popular follow functionality
 add suggestion of friends which will be 1.people that follow you and you dont follow, 2.most active followers of people u follow
-
-unsubscribe from obsvs in chat compoent
