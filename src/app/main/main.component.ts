@@ -55,17 +55,44 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
 
-  likePost(postId: string, heart: HTMLElement, postsCountDiv: HTMLDivElement) {
-    this.postsService.likePost(postId, this.currentUsername)
-      .then(() => {
-        this.renderer.addClass(heart, 'liked');
-        this.renderer.removeClass(heart, 'not-liked');
-
-        let newLikes = Number(postsCountDiv.textContent?.split(' ')[0]) + 1;
-        postsCountDiv.textContent = `${newLikes} likes`;
-      })
+  likePost(postId: string, heart: HTMLElement, postsCountDiv: HTMLDivElement, post: HTMLDivElement) {
     
+    let isLiked = post.id == 'true' ? true : false;
+
+    this.postsService.likePost(postId, this.currentUsername, isLiked)
+      .then(() => {
+
+        this.renderer.addClass(heart, !isLiked ? 'liked' : 'not-liked');
+        this.renderer.removeClass(heart, !isLiked ? 'not-liked' : 'liked');
+
+        let newLikes = !isLiked ? Number(postsCountDiv.textContent?.split(' ')[0]) + 1 : Number(postsCountDiv.textContent?.split(' ')[0]) - 1;
+        postsCountDiv.textContent = `${newLikes} likes`;    
+        
+        post.id = isLiked ? 'false' : 'true';
+
+      })
   }
+
+  // unlikePost(postId: string, heart: HTMLElement, postsCountDiv: HTMLDivElement, post: HTMLElement) {
+  //   this.postsService.unlikePost(postId, this.currentUsername)
+  //     .then(() => {
+  //       this.renderer.addClass(heart, 'not-liked');
+  //       this.renderer.removeClass(heart, 'liked');
+
+  //       let newLikes = Number(postsCountDiv.textContent?.split(' ')[0]) - 1;
+  //       postsCountDiv.textContent = `${newLikes} likes`;
+
+  //       console.log('POST LIKED', post.id);
+        
+  //       console.log('UNLIKING POST');
+        
+  //       post.id = String(!Boolean(post.id));
+
+                
+  //       console.log('AFTER UNLIKE');
+  //       console.log('POST LIKED', post.id);
+  //     })
+  // }
 
 
   ngOnDestroy(): void {

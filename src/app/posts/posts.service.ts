@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { arrayUnion, doc, docSnapshots, DocumentData, DocumentSnapshot, Firestore, setDoc, updateDoc } from '@angular/fire/firestore';
+import { arrayUnion, doc, docSnapshots, DocumentData, Firestore, setDoc, updateDoc } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { forkJoin, Observable, of } from 'rxjs';
-import { concatMap, map, merge, mergeMap, switchMap, tap } from 'rxjs/operators';
-import { Post } from '../shared/interfaces/post.interface';
+import { arrayRemove } from 'firebase/firestore';
+import { Observable, of } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
 import { UserService } from '../user/user.service';
 
 @Injectable({
@@ -13,11 +13,15 @@ export class PostsService {
 
   constructor(private firestore: Firestore, private userService: UserService, private router: Router) { }
 
-  likePost(postId: string, username: string) { 
+
+  likePost(postId: string, username: string, isLiked: boolean) {
     const postRef = doc(this.firestore, 'posts', postId);
     const userRef = doc(this.firestore, 'users', username);
+    if (!isLiked) {
+      return Promise.all([updateDoc(postRef, {likes: arrayUnion(username)}), updateDoc(userRef, {postsLiked: arrayUnion(postId)})])
+    }
 
-    return Promise.all([updateDoc(postRef, {likes: arrayUnion(username)}), updateDoc(userRef, {postsLiked: arrayUnion(postId)})])
+    return Promise.all([updateDoc(postRef, {likes: arrayRemove(username)}), updateDoc(userRef, {postsLiked: arrayRemove(postId)})])
 
   }
 
