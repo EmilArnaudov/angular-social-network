@@ -13,6 +13,14 @@ export class PostsService {
 
   constructor(private firestore: Firestore, private userService: UserService, private router: Router) { }
 
+  likePost(postId: string, username: string) { 
+    const postRef = doc(this.firestore, 'posts', postId);
+    const userRef = doc(this.firestore, 'users', username);
+
+    return Promise.all([updateDoc(postRef, {likes: arrayUnion(username)}), updateDoc(userRef, {postsLiked: arrayUnion(postId)})])
+
+  }
+
   async createPost(imageUrl: string, description: string, username: string | null) {
     let dateOfCreation = Date.now().toString();
     const docRef = doc(this.firestore, 'posts', dateOfCreation);
@@ -43,7 +51,7 @@ export class PostsService {
   }
 
   loadMainContent() {
-    return this.userService.loadUserInfo(localStorage.getItem('<USERNAME>') ? localStorage.getItem('<USERNAME>') : '')
+    return this.userService.loadUserInfo(localStorage.getItem('<USERNAME>') as string)
     .pipe(mergeMap((x): string => {
       let userData = x.data();
       let usersFollowing = userData?.['following'];
@@ -68,7 +76,9 @@ export class PostsService {
   loadPostContent(postId: string): Observable<DocumentData | undefined> {
     const docRef = doc(this.firestore, 'posts', postId);
 
-    return docSnapshots(docRef).pipe(map((x) => x.data()))
+    return docSnapshots(docRef).pipe(map((x) => {
+      return postId == 'subsure' ? x.data() : {...x.data(), _id: postId}}
+      ))
   }
 
 

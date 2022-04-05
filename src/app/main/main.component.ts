@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { DocumentData } from '@angular/fire/firestore';
+import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PostsService } from '../posts/posts.service';
 import { Post } from '../shared/interfaces/post.interface';
@@ -11,11 +10,16 @@ import { Post } from '../shared/interfaces/post.interface';
 })
 export class MainComponent implements OnInit, OnDestroy {
 
+  
+  get currentUsername() {
+    return  localStorage.getItem('<USERNAME>') as string;
+   }
+
   postsSubscription!: Subscription
   posts = [] as any;
   loadingPosts!: boolean;
 
-  constructor(private postsService: PostsService) { }
+  constructor(private postsService: PostsService, private renderer: Renderer2) { }
 
 
   //Set timeout is needed here because of a bug that didnt load main page right after logging in because localstorage setItem took too
@@ -36,7 +40,10 @@ export class MainComponent implements OnInit, OnDestroy {
         if (data) {
           let isUnique = this.checkUnique(data['createdAt'])
           if(isUnique) {
+            data['hasUserLiked'] = data['likes'].includes(this.currentUsername)
             this.posts.push(data);
+            console.log(data);
+            
           }
 
         }
@@ -46,6 +53,20 @@ export class MainComponent implements OnInit, OnDestroy {
     }, 1100);
 
   }
+
+
+  likePost(postId: string, heart: HTMLElement, postsCountDiv: HTMLDivElement) {
+    this.postsService.likePost(postId, this.currentUsername)
+      .then(() => {
+        this.renderer.addClass(heart, 'liked');
+        this.renderer.removeClass(heart, 'not-liked');
+
+        let newLikes = Number(postsCountDiv.textContent?.split(' ')[0]) + 1;
+        postsCountDiv.textContent = `${newLikes} likes`;
+      })
+    
+  }
+
 
   ngOnDestroy(): void {
     console.log('unsubscribing');

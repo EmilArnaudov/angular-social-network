@@ -15,21 +15,12 @@ export class UserService {
 
   constructor(private auth: Auth, private firestore: Firestore, private router: Router) { }
 
-  // this null is added because currentUserUsername is always first parameter and is taken from localStorage which according to typescript
-  // can be null
 
   async followUser(usernameFollower: string | null, usernameFollowing: string) {
     const followerRef = doc(this.firestore, 'users', usernameFollower ? usernameFollower : '');
     const followingRef = doc(this.firestore, 'users', usernameFollowing);
 
-    // console.log('UPDATING DOC: FOLLOWER: ', usernameFollower);
-    // console.log('UPDATING DOC: FOLLOWING: ', usernameFollowing);
-    
-
-    await updateDoc(followerRef, {following: arrayUnion(usernameFollowing)});
-    await updateDoc(followingRef, {followers: arrayUnion(usernameFollower)});
-
-    // console.log('INFO UPDATE FINISHED');
+    return Promise.all([updateDoc(followerRef, {following: arrayUnion(usernameFollowing)}), updateDoc(followingRef, {followers: arrayUnion(usernameFollower)})])
     
   }
 
