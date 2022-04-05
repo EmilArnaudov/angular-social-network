@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { arrayUnion, doc, docSnapshots, DocumentData, Firestore, setDoc, updateDoc } from '@angular/fire/firestore';
+import { arrayUnion, doc, docSnapshots, DocumentData, Firestore, increment, setDoc, updateDoc } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { arrayRemove } from 'firebase/firestore';
+import { arrayRemove, FieldValue } from 'firebase/firestore';
 import { Observable, of } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 import { UserService } from '../user/user.service';
@@ -28,11 +28,11 @@ export class PostsService {
   async createPost(imageUrl: string, description: string, username: string | null) {
     let dateOfCreation = Date.now().toString();
     const docRef = doc(this.firestore, 'posts', dateOfCreation);
-
+    const incrementOne = increment(1)
 
     //insert post id in user's posts array
     const userRef = doc(this.firestore, 'users', username ? username : '');
-    await updateDoc(userRef, {posts: arrayUnion(dateOfCreation)});
+    await updateDoc(userRef, {posts: arrayUnion(dateOfCreation), postsCount: incrementOne});
 
     this.userService.loadUserInfo(username)
       .subscribe(data => {

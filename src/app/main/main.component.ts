@@ -42,8 +42,6 @@ export class MainComponent implements OnInit, OnDestroy {
           if(isUnique) {
             data['hasUserLiked'] = data['likes'].includes(this.currentUsername)
             this.posts.push(data);
-            console.log(data);
-            
           }
 
         }

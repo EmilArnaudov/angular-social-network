@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DocumentData } from '@angular/fire/firestore';
+import { UserProfile } from '../shared/interfaces/user.interface';
+import { UserService } from '../user/user.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  users!: UserProfile[];
+
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    this.userService.loadMostPopular()
+      .then(usersData => {
+        this.users = usersData as UserProfile[];
+        
+      })
   }
 
 }

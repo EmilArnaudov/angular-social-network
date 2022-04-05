@@ -41,6 +41,7 @@ export class AuthService {
           followers: [],
           following: [user.username],
           posts: ['subsure'],
+          postsCount: 0,
           likesOnOwnPosts: [],
           postsLiked: [],
           profilePicture: 'https://firebasestorage.googleapis.com/v0/b/socialnetwork-9b824.appspot.com/o/images%2Fprofile%2Fdefault-profile.jpg?alt=media&token=acf5080c-4843-4962-8c93-583d52659e88',

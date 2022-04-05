@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
-import { Firestore, collection, getDocs, updateDoc, arrayUnion, docSnapshots } from '@angular/fire/firestore';
+import { Firestore, collection, getDocs, updateDoc, arrayUnion, docSnapshots, query, orderBy, limit } from '@angular/fire/firestore';
 import { DocumentData, doc, DocumentSnapshot } from '@angular/fire/firestore';
 import { UserProfile } from '../shared/interfaces/user.interface';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { where } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -53,5 +54,18 @@ export class UserService {
     this.userProfileData = users.filter((x: any) => x.email == this.auth.currentUser?.email)[0];
     return this.userProfileData
 
+  }
+
+
+  async loadMostPopular() {
+    const collectionRef = collection(this.firestore, 'users');
+    const usersQuery = query(collectionRef, orderBy("postsCount", "desc"), limit(3));
+
+    let response = await getDocs(usersQuery)
+
+    let users = response.docs.map((item): UserProfile | DocumentData => item.data());
+
+    return users;
+    
   }
 }

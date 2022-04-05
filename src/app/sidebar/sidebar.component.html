@@ -1,22 +1,13 @@
 <div class="container mt-5 position-sticky align-items-end">
     <div class="card p-3">
         <h5><span class="text-info">Popular</span> Profiles</h5>
-        <div class="d-flex justify-content-between mt-2 align-items-center">
-            <div class="d-flex flex-row"> <img src="https://i.imgur.com/o5uMfKo.jpg" class="rounded-circle" width="40">
-                <div class="d-flex flex-column ml-1 about"> <span class="font-weight-bold">Madison</span> <small>585 posts</small> </div>
-            </div> <button class="btn btn-outline-info btn-sm follow">Follow</button>
-        </div>
-        <hr>
-        <div class="d-flex justify-content-between mt-2 align-items-center">
-            <div class="d-flex flex-row"> <img src="https://i.imgur.com/tmdHXOY.jpg" class="rounded-circle" width="40">
-                <div class="d-flex flex-column ml-1 about"> <span class="font-weight-bold">Anna Sthesia</span> <small>285 posts</small> </div>
-            </div> <button class="btn btn-sm follow">Follow</button>
-        </div>
-        <hr>
-        <div class="d-flex justify-content-between mt-2 align-items-center">
-            <div class="d-flex flex-row"> <img src="https://i.imgur.com/C4egmYM.jpg" class="rounded-circle" width="40">
-                <div class="d-flex flex-column ml-1 about"> <span class="font-weight-bold">Paul Moliv</span> <small>585 posts</small> </div>
-            </div> <button class="btn  btn-sm follow">Follow</button>
-        </div>
+        <ng-container *ngFor="let user of users">
+            <div  class="d-flex justify-content-between mt-2 align-items-center">
+                <div class="d-flex flex-row"> <img [src]="user.profilePicture" class="rounded-circle" height="35" width="40">
+                    <div class="d-flex flex-column ml-1 about"> <span class="font-weight-bold">{{user.username}}</span> <small>{{user.postsCount}} posts</small> </div>
+                </div> <button [routerLink]="['/app/', user.username]" class="btn btn-outline-info btn-sm follow">Check out</button>
+            </div>
+            <hr>
+    </ng-container>
     </div>
 </div>

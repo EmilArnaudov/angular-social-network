@@ -20,4 +20,5 @@ export interface UserProfile {
     country: string;
     region: string;
     phoneNumber: string;
+    postsCount: number;
 }
