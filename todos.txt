@@ -4,3 +4,5 @@ add 404 page
 add check for username when registering new user
 implement most popular follow functionality
 add suggestion of friends which will be 1.people that follow you and you dont follow, 2.most active followers of people u follow
+add emojis
+user profile exists guard 

@@ -43,7 +43,7 @@ export class MainComponent implements OnInit, OnDestroy {
         
 
       })
-    }, 800);
+    }, 1100);
 
   }
 

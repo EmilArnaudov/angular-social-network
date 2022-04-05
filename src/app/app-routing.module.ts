@@ -13,6 +13,7 @@ import { ProfileEditComponent } from './user/profile-edit/profile-edit.component
 import { IsOwnerGuard } from './shared/is-owner.guard';
 import { CreatePostComponent } from './posts/create-post/create-post.component';
 import { ChatComponent } from './chat/chat.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full', canActivate: [UserGuard]},
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path: 'app/messages/:username', component: ChatComponent, canActivate: [AuthGuard, IsOwnerGuard]},
   {path: 'app/:username', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'app/:username/edit', component: ProfileEditComponent, canActivate: [AuthGuard, IsOwnerGuard],},
+  {path: '**', component: NotFoundComponent}
 
 ];
 
