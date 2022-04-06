@@ -37,6 +37,7 @@
                                  ngModel
                                  [ngClass]="username.invalid && username.touched ? 'error' : ''"
                                  required
+                                 appUsernameExists
                                  minlength="4"
                                  pattern="^[a-zA-Z0-9\._]+">
                                  <i [ngClass]="username.invalid && username.touched ? '' : 'hidden'" class="bi bi-x-circle error-icon"></i>
@@ -52,6 +53,9 @@
                                 </p>
                                 <p class="form-error" *ngIf="username.errors?.['minlength']">
                                     Username should be at least 4 characters.
+                                </p>
+                                <p class="form-error" *ngIf="username.errors?.['usernameTaken']">
+                                    Username is already taken.
                                 </p>
                             </ng-container>
                             

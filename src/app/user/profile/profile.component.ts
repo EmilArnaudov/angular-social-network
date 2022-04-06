@@ -81,6 +81,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     console.log('IN FOLLOW USER AFTER FOLLOW: ', this.userPostsContent);
   }
 
+
   private checkUnique(createdAt: string) {
     return !this.userPostsContent.find((post: Post) => post.createdAt  == createdAt);
   }

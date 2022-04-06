@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { SameValueDirective } from './same-value.directive';
+import { UsernameExistsDirective } from './username-exists.directive';
 
 
 
@@ -14,7 +15,8 @@ import { SameValueDirective } from './same-value.directive';
   declarations: [
     LoginComponent,
     RegisterComponent,
-    SameValueDirective
+    SameValueDirective,
+    UsernameExistsDirective
   ],
   imports: [
     CommonModule,

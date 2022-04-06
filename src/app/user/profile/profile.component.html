@@ -30,10 +30,11 @@
 
     <div *ngIf="userData?.posts.length > 1" class="row text-center text-lg-start">
 
-        <div *ngFor="let post of userPostsContent" class="col-lg-3 col-md-4 col-6">
-          <a class="d-block mb-4 h-100">
+        <div *ngFor="let post of userPostsContent, index as i" class="col-lg-3 col-md-4 col-6">
+          <a class="d-block mb-4 h-100" data-toggle="lightbox">
             <img class="thumbnail img-thumbnail" width="400"  [src]="post.imageUrl" alt="">
           </a>
+
         </div>
     </div>
 

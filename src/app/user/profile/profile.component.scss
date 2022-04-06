@@ -87,3 +87,30 @@
     font-size: 55px;
     color: #0dcaf0;
 }
+
+html,body {
+    font-family: sans-serif;
+    padding: 0 1em;
+    font-size: 19px;
+    background: #222;
+    color: #aaa;
+    text-align:center;
+  }
+  
+  p {
+    margin: 1.5em 0;
+    color: #aaa;
+  }
+  
+  img {
+    max-height: 50vh;
+  }
+  
+  a {
+    color: inherit;
+  }
+  
+  a:hover {
+    color: #bbb;
+  }
+  
