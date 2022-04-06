@@ -14,6 +14,7 @@ import { IsOwnerGuard } from './shared/is-owner.guard';
 import { CreatePostComponent } from './posts/create-post/create-post.component';
 import { ChatComponent } from './chat/chat.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ProfileExistsGuard } from './shared/profile-exists.guard';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full', canActivate: [UserGuard]},
@@ -22,7 +23,7 @@ const routes: Routes = [
   {path: 'app', component: MainComponent, canActivate: [AuthGuard]},
   {path: 'app/create-post', component: CreatePostComponent, canActivate: [AuthGuard]},
   {path: 'app/messages/:username', component: ChatComponent, canActivate: [AuthGuard, IsOwnerGuard]},
-  {path: 'app/:username', component: ProfileComponent, canActivate: [AuthGuard]},
+  {path: 'app/:username', component: ProfileComponent, canActivate: [AuthGuard, ProfileExistsGuard]},
   {path: 'app/:username/edit', component: ProfileEditComponent, canActivate: [AuthGuard, IsOwnerGuard],},
   {path: '**', component: NotFoundComponent}
 

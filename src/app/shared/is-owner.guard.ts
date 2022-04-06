@@ -22,9 +22,6 @@ export class IsOwnerGuard implements CanActivate {
     return new Promise((resolve, reject) => {
       let profileToAccessUsername = route.params['username'];
 
-      console.log('LOCAL NAME: ', this.currentUserUsername);
-      console.log('ROUTE NAME: ', route.params['username']);
-
       if (this.currentUserUsername === profileToAccessUsername) {
         resolve(true);
       } else {

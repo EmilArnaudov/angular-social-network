@@ -22,10 +22,7 @@ export class UsernameExistsDirective implements AsyncValidator{
     let userDoc = await getDoc(userDocRef);
 
     let data = userDoc.data();
-
-    console.log('I AM CHECKING USERNAME: ', data);
     
-
     return data ? {usernameTaken: 'Username is already taken.'} : null
   }
 }
