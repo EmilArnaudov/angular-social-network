@@ -21,4 +21,7 @@ export interface UserProfile {
     region: string;
     phoneNumber: string;
     postsCount: number;
+    status: string;
+    lastSeen: string;
+    lastSeenReadable: string;
 }

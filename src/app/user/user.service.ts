@@ -25,6 +25,14 @@ export class UserService {
     
   }
 
+  setLogoutTime(username: string, time: string) {
+    const userRef = doc(this.firestore, 'users', username)
+
+
+    return Promise.all([updateDoc(userRef, {lastSeen: time}), updateDoc(userRef, {status: 'offline'})])
+
+  }
+
   updateUserInfo(username: string, data: object) {
     const docRef = doc(this.firestore, 'users', username);
 
@@ -44,14 +52,19 @@ export class UserService {
 
   async loadUserInfoOnLogin(): Promise<UserProfile> {
     const collectionRef = collection(this.firestore, 'users');
-
     let response = await getDocs(collectionRef)
+
+
 
     let users = response.docs.map((item) => {
       return {...item.data(), id: item.id}
     });
 
     this.userProfileData = users.filter((x: any) => x.email == this.auth.currentUser?.email)[0];
+    
+    const userRef = doc(this.firestore, 'users', this.userProfileData.username)
+    await updateDoc(userRef, {status: 'online'})
+
     return this.userProfileData
 
   }

@@ -41,6 +41,8 @@ export class AuthService {
           followers: [],
           following: [user.username],
           posts: ['subsure'],
+          status: 'online',
+          lastSeen: '',
           postsCount: 0,
           likesOnOwnPosts: [],
           postsLiked: [],
@@ -64,10 +66,15 @@ export class AuthService {
 
 
   logout() {
-    signOut(this.auth)
+    let time = String(Date.now());
+    this.userService.setLogoutTime(localStorage.getItem('<USERNAME>') as string, time)
       .then(() => {
-      localStorage.clear();
-      this.router.navigate(['/login'])})
+        signOut(this.auth)
+        .then(() => {
+        localStorage.clear();
+        this.router.navigate(['/login'])})
+      })
+
   }
 
   async login(email: string, password: string) {

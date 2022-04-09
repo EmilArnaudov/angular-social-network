@@ -50,11 +50,12 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.contactSubscription = this.chatService.loadContacts()
-      .subscribe(contact => {
+      .subscribe((contact) => {
         if (contact) {
           let isUnique = this.checkUnique(contact['username'])
           
           if(isUnique && contact['username'] !== localStorage.getItem('<USERNAME>')) {
+            this.getLastSeen(contact as UserProfile);
             this.contacts.push(contact);
 
             if (!this.participantTwo) {
@@ -84,6 +85,56 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private checkUnique(username: string) {
     return !this.contacts.find((contact: UserProfile) => contact.username  == username);
+  }
+
+  private getLastSeen(contact: UserProfile) {
+    let time = Date.now();
+
+    if (contact.status == 'online') {
+      return;
+    }
+
+    let timeDiff = time - Number(contact.lastSeen);
+
+    let seconds = Math.floor(timeDiff / 1000);
+    if (seconds < 60) {
+      contact.lastSeenReadable = `${seconds} seconds`
+      return;
+    }
+
+    let minutes = Math.floor(seconds / 60);
+    if (minutes < 60) {
+      contact.lastSeenReadable = `${minutes} minutes`
+      return;
+    }
+
+    let hours = Math.floor(minutes / 60);
+    if (hours < 24) {
+      contact.lastSeenReadable = `${hours} hours`
+      return;
+    }
+
+    let days = Math.floor(hours / 24);
+    if (days < 7) {
+      contact.lastSeenReadable = `${days} days`
+      return;
+    }
+
+    let weeks = Math.floor(days / 7)
+    if (weeks < 4) {
+      contact.lastSeenReadable = `${weeks} weeks`
+      return;
+    }
+
+    let months = Math.floor(weeks / 4)
+    if (months < 12) {
+      contact.lastSeenReadable = `${months} months`
+      return;
+    }
+
+    let years = Math.floor(months / 12);
+    contact.lastSeenReadable = `${years} years`
+    return;
   }
 
   ngOnDestroy(): void {
