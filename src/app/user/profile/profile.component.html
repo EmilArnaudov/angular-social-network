@@ -14,7 +14,7 @@
                         <li>{{userData?.followers.length ? userData.followers.length : '0'}} followers</li>
                     </ul>
                     <div *ngIf="userData?.username !== currentUserUsername" class="buttons"> 
-                      <button class="btn btn-info-primary px-4">Message</button>
+                      <button [disabled]="!userData?.followers.includes(currentUserUsername)" class="btn btn-info-primary px-4">Message</button>
                       <button *ngIf="!userData?.followers.includes(currentUserUsername)" (click)="followUser()" class="btn btn-info px-4 ms-3">Follow</button>
                       <button *ngIf="userData?.followers.includes(currentUserUsername)" disabled class="btn btn-info px-4 ms-3">Following</button>
                      </div>
@@ -31,7 +31,7 @@
     <div *ngIf="userData?.posts.length > 1" class="row text-center text-lg-start">
 
         <div *ngFor="let post of userPostsContent, index as i" class="col-lg-3 col-md-4 col-6">
-          <a class="d-block mb-4 h-100" data-toggle="lightbox">
+          <a class="d-block mb-4 h-100">
             <img class="thumbnail img-thumbnail" width="400"  [src]="post.imageUrl" alt="">
           </a>
 

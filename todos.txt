@@ -1,5 +1,3 @@
-Create a welcome modal when a user register.
 add lightbox to posts
 add suggestion of friends which will be 1.people that follow you and you dont follow, 2.most active followers of people u follow
 add emojis
-user profile exists guard 

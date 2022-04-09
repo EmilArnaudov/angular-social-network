@@ -17,6 +17,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   postsSubscription!: Subscription
   posts = [] as any;
+  postsHolder = [] as any;
   loadingPosts!: boolean;
 
   constructor(private postsService: PostsService, private renderer: Renderer2) { }
@@ -29,24 +30,25 @@ export class MainComponent implements OnInit, OnDestroy {
     this.loadingPosts = true;
     // clear array
     this.posts.splice(0, this.posts.length)
+    this.postsHolder.splice(0, this.posts.length)
     //
     
     setTimeout(() => {
 
       this.posts.splice(0, this.posts.length)
-      this.postsSubscription = this.postsService.loadMainContent()
+      this.postsHolder.splice(0, this.posts.length)
+      this.postsSubscription = this.postsService.loadMainContent(this.currentUsername)
       .subscribe(data => {
         this.loadingPosts = false;
         if (data) {
           let isUnique = this.checkUnique(data['createdAt'])
           if(isUnique) {
             data['hasUserLiked'] = data['likes'].includes(this.currentUsername)
-            this.posts.push(data);
+            this.postsHolder.push(data);
+            this.postsHolder = this.postsHolder.sort((a: Post,b: Post) => b.createdAt.localeCompare(a.createdAt));
+            this.posts = this.postsHolder; 
           }
-
-        }
-        
-
+        }       
       })
     }, 1100);
 
@@ -71,32 +73,12 @@ export class MainComponent implements OnInit, OnDestroy {
       })
   }
 
-  // unlikePost(postId: string, heart: HTMLElement, postsCountDiv: HTMLDivElement, post: HTMLElement) {
-  //   this.postsService.unlikePost(postId, this.currentUsername)
-  //     .then(() => {
-  //       this.renderer.addClass(heart, 'not-liked');
-  //       this.renderer.removeClass(heart, 'liked');
-
-  //       let newLikes = Number(postsCountDiv.textContent?.split(' ')[0]) - 1;
-  //       postsCountDiv.textContent = `${newLikes} likes`;
-
-  //       console.log('POST LIKED', post.id);
-        
-  //       console.log('UNLIKING POST');
-        
-  //       post.id = String(!Boolean(post.id));
-
-                
-  //       console.log('AFTER UNLIKE');
-  //       console.log('POST LIKED', post.id);
-  //     })
-  // }
-
 
   ngOnDestroy(): void {
     console.log('unsubscribing');
     this.postsSubscription.unsubscribe();
-    this.posts.splice(0, this.posts.length)
+    this.posts.splice(0, this.posts.length);
+    this.postsHolder.splice(0, this.posts.length)
   }
 
   private checkUnique(createdAt: string) {

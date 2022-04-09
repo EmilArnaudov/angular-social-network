@@ -54,22 +54,30 @@ export class PostsService {
       });
   }
 
-  loadMainContent() {
-    return this.userService.loadUserInfo(localStorage.getItem('<USERNAME>') as string)
+  loadMainContent(username: string) {
+    return this.userService.loadUserInfo(username)
     .pipe(mergeMap((x): string => {
       let userData = x.data();
       let usersFollowing = userData?.['following'];
+
       
+      usersFollowing = usersFollowing.filter((x: string) => x != username);
+      usersFollowing.push(`${username}`)
+      
+
       return usersFollowing;
     }),
-    mergeMap((user: string) => this.loadUserPosts(user)),
+    mergeMap((user: string) => {console.log(user);
+     return this.loadUserPosts(user)}),
     mergeMap((postIds: string[]) => of(postIds).pipe(
       mergeMap(postIds => {return postIds}),
-      mergeMap((postId) => this.loadPostContent(postId)))))
+      mergeMap((postId) =>  this.loadPostContent(postId)))))
 
   }
 
   loadUserPosts(username: string) {
+    console.log('LOADING POSTS', username);
+    
     return this.userService.loadUserInfo(username)
       .pipe(map((data) => {
         let userData = data.data();
@@ -81,7 +89,7 @@ export class PostsService {
     const docRef = doc(this.firestore, 'posts', postId);
 
     return docSnapshots(docRef).pipe(map((x) => {
-      return postId == 'subsure' ? x.data() : {...x.data(), _id: postId}}
+      return postId == 'subsure' ? undefined : {...x.data(), _id: postId}}
       ))
   }
 
