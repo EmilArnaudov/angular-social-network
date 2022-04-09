@@ -6,8 +6,8 @@
                     <div class="col-md-6" style="width: 76%;">
                         <div class="card border">
                             <div class="d-flex justify-content-between p-2 px-3">
-                                <div class="d-flex flex-row align-items-center"> <img [src]="post?.creatorProfilePicture" width="50" height="50" class="profile-image">
-                                    <div class="d-flex flex-column ml-2"> <span class="font-weight-bold creator">{{post?.creator}}</span> </div>
+                                <div class="d-flex flex-row align-items-center"> <img [routerLink]="['/app/', post?.creator]" [src]="post?.creatorProfilePicture" width="50" height="50" class="profile-image clickable">
+                                    <div class="d-flex flex-column ml-2"> <span [routerLink]="['/app/', post?.creator]" class="font-weight-bold creator clickable">{{post?.creator}}</span> </div>
                                 </div>
                                 <div class="d-flex flex-row mt-1 ellipsis"></div>
                             </div> <img [src]="post?.imageUrl" class="img-fluid">
