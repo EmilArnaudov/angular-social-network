@@ -33,6 +33,7 @@ export class UserService {
 
   }
 
+
   updateUserInfo(username: string, data: object) {
     const docRef = doc(this.firestore, 'users', username);
 

@@ -15,7 +15,7 @@
                                 <p class="text-justify description">{{post?.description}}</p>
                                 <hr>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div class="d-flex flex-row icons d-flex align-items-center"><i #heart [ngClass]="renderedPost.id == 'true' ? 'liked' : 'not-liked'" (click)="likePost(post?._id, heart, likes, renderedPost)" class="fa-solid fa-heart"></i></div>
+                                    <div class="d-flex flex-row icons d-flex align-items-center"><i #heart [ngClass]="renderedPost.id == 'true' ? 'liked' : 'not-liked'" (click)="likePost(post?._id, heart, likes, renderedPost, post?.creator)" class="fa-solid fa-heart"></i></div>
                                     <div #likes class="d-flex flex-row muted-color">{{post?.likes.length}} likes</div>
                                 </div>
                                 <hr>

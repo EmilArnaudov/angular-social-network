@@ -55,11 +55,11 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
 
-  likePost(postId: string, heart: HTMLElement, postsCountDiv: HTMLDivElement, post: HTMLDivElement) {
+  likePost(postId: string, heart: HTMLElement, postsCountDiv: HTMLDivElement, post: HTMLDivElement, postCreator: string) {
     
     let isLiked = post.id == 'true' ? true : false;
 
-    this.postsService.likePost(postId, this.currentUsername, isLiked)
+    this.postsService.likePost(postId, this.currentUsername, isLiked, postCreator)
       .then(() => {
 
         this.renderer.addClass(heart, !isLiked ? 'liked' : 'not-liked');

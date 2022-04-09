@@ -33,6 +33,23 @@
         <li class="nav-item">
           <a class="nav-link"  [routerLink]="['/app/','messages', username]" [routerLinkActive]="'text-info'" [routerLinkActiveOptions]="{exact: true}"><i class="fa-solid fa-paper-plane fa-xl"></i></a>
         </li>
+        <li>
+          <button class="navbar-toggler"  data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a class="nav-link" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa-brands fa-gratipay fa-xl"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                  <li *ngFor="let usernameLike of likesOnPhotos | async"><p class="dropdown-item">{{username == usernameLike ? 'You' : usernameLike}} liked your photo. <i class="fa-solid fa-heart"></i></p></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </li>
         <li class="nav-item">
           <a class="nav-link" style="padding: 0;" [routerLink]="['/app/', username]" [routerLinkActive]="'text-info'" [routerLinkActiveOptions]="{exact: true}" ><img class="profile-image" [src]="userProfilePic" width="39px" height="38px"></a>
         </li>
