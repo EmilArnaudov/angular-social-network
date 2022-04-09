@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { arrayUnion, doc, docSnapshots, DocumentData, Firestore, increment, setDoc, updateDoc } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { arrayRemove, FieldValue, getDoc } from 'firebase/firestore';
+import { arrayRemove, FieldValue } from 'firebase/firestore';
 import { Observable, of } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 import { UserService } from '../user/user.service';
@@ -14,28 +14,11 @@ export class PostsService {
   constructor(private firestore: Firestore, private userService: UserService, private router: Router) { }
 
 
-  async likePost(postId: string, username: string, isLiked: boolean, postCreator: string) {
+  likePost(postId: string, username: string, isLiked: boolean) {
     const postRef = doc(this.firestore, 'posts', postId);
     const userRef = doc(this.firestore, 'users', username);
-    const creatorRef = doc(this.firestore, 'users', postCreator);
-
-    console.log(postCreator);
-    
-
-    let creatorDoc = await getDoc(creatorRef)
-    let creator = creatorDoc.data();
-    console.log(creator?.['likesOnOwnPosts']);
-    
-    let likesOnOwnPosts = creator?.['likesOnOwnPosts'];
-    likesOnOwnPosts.unshift(username);
-    if (likesOnOwnPosts.length > 5) {
-      likesOnOwnPosts.splice(6, likesOnOwnPosts.length-1);
-    }
-    console.log(likesOnOwnPosts);
-    
-
     if (!isLiked) {
-      return Promise.all([updateDoc(postRef, {likes: arrayUnion(username)}), updateDoc(userRef, {postsLiked: arrayUnion(postId)}), updateDoc(creatorRef, {likesOnOwnPosts: likesOnOwnPosts})])
+      return Promise.all([updateDoc(postRef, {likes: arrayUnion(username)}), updateDoc(userRef, {postsLiked: arrayUnion(postId)})])
     }
 
     return Promise.all([updateDoc(postRef, {likes: arrayRemove(username)}), updateDoc(userRef, {postsLiked: arrayRemove(postId)})])
