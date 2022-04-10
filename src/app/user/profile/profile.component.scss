@@ -145,25 +145,3 @@ html,body {
     margin-right: 10px;
     color: blue
 }
-
-.form-control {
-    border-radius: 26px
-}
-
-.comment-input {
-    position: relative
-}
-
-.fonts {
-    position: absolute;
-    right: 13px;
-    top: 8px;
-    color: #a09c9c
-}
-.form-control:focus {
-    color: #495057;
-    background-color: #fff;
-    border-color: #8bbafe;
-    outline: 0;
-    box-shadow: none
-}

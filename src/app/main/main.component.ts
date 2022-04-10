@@ -80,7 +80,6 @@ export class MainComponent implements OnInit, OnDestroy {
       })
   }
 
-
   showComments(commentsDiv: HTMLDivElement) {
     
     if (commentsDiv.id == 'hidden') {
