@@ -6,6 +6,7 @@
    - Customize their profile
    - Share photos
    - Like photos
+   - Comment on photos
    - Every users has a unique news feed based on people they follow
    - Users can send Direct Messages, only if both users follow each other. 
 
