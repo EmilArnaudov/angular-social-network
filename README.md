@@ -1,6 +1,6 @@
 # SocialNetwork Angular App 
 
-The angular app 'Social Network' is a mini social network project that allows it's users to: 
+#### The angular app 'Social Network' is a mini social network project that allows it's users to: 
 
    - Register and login with email and password
    - Customize their profile
