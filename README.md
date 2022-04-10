@@ -14,4 +14,9 @@
    - The application front-end is based on Angular, HTML, CSS, Bootstrap 5
    - The application back-end is based on Firebase making use of the Firebase Authentication and Firestore Database
 
+## Live Demo
+
+   - App live demo: [Click here](https://socialnetwork-9b824.web.app/)
+
+
 
