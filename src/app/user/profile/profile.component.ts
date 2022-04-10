@@ -14,8 +14,11 @@ import { UserService } from '../user.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-  routeSubscription!: Subscription
-  userInfoSubscription!: Subscription
+  routeSubscription!: Subscription;
+  userInfoSubscription!: Subscription;
+
+  modalPost!: Post;
+  comment!: string;
 
   userPostsContent = [] as any;
   userData!: UserProfile | any;
@@ -28,17 +31,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
    //Subcription is needed here because loading a profile from another profile didnt update the values.
 
    ngOnInit(): void {
-     console.log('ON INIT: ', this.userPostsContent);
+     console.log(this.modalPost);
      
     this.routeSubscription = this.route.params.subscribe(params => {
       if (params['username']) {
         //clear array
-        // console.log('ROUTE CHANGE BEFORE CLEAR: ', this.userPostsContent);
         
         this.userPostsContent.splice(0, this.userPostsContent.length);
-        //
 
-        // console.log('ROUTE CHANGE AFTER CLEAR: ', this.userPostsContent);
 
         this.userInfoSubscription = this.userService.loadUserInfo(params['username'])
           .pipe(mergeMap((data: DocumentSnapshot): ObservableInput<any> => {
@@ -63,14 +63,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
                 }
 
 
-                // console.log('IN SUBSSCRIBE AFTER PUSH: ', this.userPostsContent);
-                // console.log('POST CONTENT FROM THE ARRAY: ', this.userPostsContent[0]);
+
                 
               }
           }
           )
       }
     })
+  }
+
+  changeModalPost(post: Post) {
+    this.modalPost = post;
+    console.log(this.modalPost);
+    
   }
 
   async followUser() {

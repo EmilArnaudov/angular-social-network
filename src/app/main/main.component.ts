@@ -116,7 +116,7 @@ export class MainComponent implements OnInit, OnDestroy {
       .then(() => {
         this.comment = '';
         let post = this.posts.find((x: any) => x.createdAt == postId);
-        post.comments.push(newComment);
+        post.comments.unshift(newComment);
       })
 
   }

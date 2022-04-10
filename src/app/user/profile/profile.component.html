@@ -31,8 +31,8 @@
     <div *ngIf="userData?.posts.length > 1" class="row text-center text-lg-start">
 
         <div *ngFor="let post of userPostsContent, index as i" class="col-lg-3 col-md-4 col-6">
-          <a class="d-block mb-4 h-100">
-            <img class="thumbnail img-thumbnail" width="400"  [src]="post.imageUrl" alt="">
+          <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="d-block mb-4 h-100 clickable">
+            <img class="thumbnail img-thumbnail" (click)="changeModalPost(post)" width="400"  [src]="post.imageUrl" alt="">
           </a>
 
         </div>
@@ -44,3 +44,27 @@
     </div>
 
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered align-items-center justify-content-center">
+       <!-- <div class="modal-content">
+         <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div> 
+        <div class="modal-body">
+            <div>
+                <img [src]="modalPost?.imageUrl" alt="">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>  -->
+      <div class="">
+          <img [src]="modalPost?.imageUrl" alt="">
+      </div>
+     
+    </div>
+  </div>
