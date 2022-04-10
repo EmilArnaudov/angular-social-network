@@ -20,6 +20,8 @@ export class MainComponent implements OnInit, OnDestroy {
   postsHolder = [] as any;
   loadingPosts!: boolean;
 
+  comment!: string;
+
   constructor(private postsService: PostsService, private renderer: Renderer2) { }
 
 
@@ -74,8 +76,34 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
 
+  showComments(commentsDiv: HTMLDivElement) {
+    
+    if (commentsDiv.id == 'hidden') {
+      console.log('removing hidden');
+      
+      this.renderer.removeClass(commentsDiv, 'hidden');
+      commentsDiv.id = '';
+    } else {
+      this.renderer.addClass(commentsDiv, 'hidden');
+      commentsDiv.id = 'hidden';
+
+     }
+  }
+
+  submitCommentHandler(event: any, commentInput: HTMLDivElement) {
+    if (event.keyCode === 13) {
+      let postId = commentInput.id;
+      this.submitComment(postId);
+    }
+  }
+
+  submitComment(postId: string) {
+    console.log(this.comment, postId);
+    
+    // this.postsService.submitComment();
+  }
+
   ngOnDestroy(): void {
-    console.log('unsubscribing');
     this.postsSubscription.unsubscribe();
     this.posts.splice(0, this.posts.length);
     this.postsHolder.splice(0, this.posts.length)
@@ -84,5 +112,6 @@ export class MainComponent implements OnInit, OnDestroy {
   private checkUnique(createdAt: string) {
     return !this.posts.find((post: Post) => post.createdAt  == createdAt);
   }
+
 
 }
