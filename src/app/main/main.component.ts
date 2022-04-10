@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PostsService } from '../posts/posts.service';
+import { IComment } from '../shared/interfaces/comment.interface';
 import { Post } from '../shared/interfaces/post.interface';
 
 @Component({
@@ -13,6 +14,10 @@ export class MainComponent implements OnInit, OnDestroy {
   
   get currentUsername() {
     return  localStorage.getItem('<USERNAME>') as string;
+   }
+
+   get currentProfilePic() {
+    return  localStorage.getItem('<PROFILEPIC>') as string;
    }
 
   postsSubscription!: Subscription
@@ -98,10 +103,25 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   submitComment(postId: string) {
-    console.log(this.comment, postId);
+    const newComment: IComment = {
+      owner: this.currentUsername,
+      profilePic: this.currentProfilePic,
+      content: this.comment,
+      likes: [],
+      replies: [],
+      createdAt: String(Date.now())
+    }
     
-    // this.postsService.submitComment();
+    this.postsService.submitComment(postId, newComment)
+      .then(() => {
+        this.comment = '';
+        let post = this.posts.find((x: any) => x.createdAt == postId);
+        post.comments.push(newComment);
+      })
+
   }
+
+
 
   ngOnDestroy(): void {
     this.postsSubscription.unsubscribe();

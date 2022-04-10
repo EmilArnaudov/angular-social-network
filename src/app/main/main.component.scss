@@ -161,3 +161,10 @@ hr {
 .hidden {
     display: none;
 }
+
+.scroller {
+    height: 200px;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column-reverse;
+}

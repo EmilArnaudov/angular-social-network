@@ -1,4 +1,4 @@
-export interface Comment {
+export interface IComment {
     owner: string;
     createdAt: string;
     profilePic: string;

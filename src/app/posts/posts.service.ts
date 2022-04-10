@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { arrayUnion, doc, docSnapshots, DocumentData, Firestore, increment, setDoc, updateDoc } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { arrayRemove, FieldValue } from 'firebase/firestore';
+import { arrayRemove } from 'firebase/firestore';
 import { Observable, of } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
+import { IComment } from '../shared/interfaces/comment.interface';
 import { UserService } from '../user/user.service';
 
 @Injectable({
@@ -93,5 +94,13 @@ export class PostsService {
       ))
   }
 
+  submitComment(postId:string, comment: IComment) {
+
+    const postRef = doc(this.firestore, 'posts', postId);
+    return updateDoc(postRef, {comments: arrayUnion(comment)});
+
+
+
+  }
 
 }
